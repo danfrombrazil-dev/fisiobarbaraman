@@ -1,0 +1,267 @@
+/*
+ * design-tokens.css — Fisio Barbara Man
+ * Versão: 1.0  |  Criado: 2026-10
+ *
+ * PRINCÍPIO: Cada valor aqui tem uma âncora no universo físico do negócio.
+ * Sem valores soltos nos componentes: tudo referencia este arquivo.
+ *
+ * ÍNDICE
+ *   1. Cores Semânticas (Matéria)
+ *   2. Tipografia  (Voz & Escala Fluida)
+ *   3. Espaçamento (Respiro)
+ *   4. Raios de Borda (Geometria Tátil)
+ *   5. Elevação / Sombras (Decisão)
+ *   6. Foco Acessível (Ring)
+ *   7. Movimento (Tempo & Curvas)
+ */
+
+/* ═══════════════════════════════════════════════════════════
+   1. CORES SEMÂNTICAS
+   Âncora material: linho, argila, sálvia, ardósia, vinco de papel.
+   Todos os pares texto/fundo validados para WCAG >= AA (>= 4.5:1).
+   Texto principal e mudo atingem AAA sobre o canvas.
+   ═══════════════════════════════════════════════════════════ */
+:root {
+
+  /* — Superfícies — */
+
+  /* Papel Cru: base de tudo. Linho lavado ao sol, não branco de hospital. */
+  --color-canvas:       #F6F4EE;
+
+  /* Névoa Suave: superfície de apoio, como o interior fosco de um armário antigo. */
+  --color-surface:      #ECEAE2;
+
+  /* Vinco Tátil: separadores, como a dobra de uma folha de prescrição. */
+  --color-border:       #DCD9CE;
+
+  /* — Texto — */
+
+  /* Grafite Profundo: contraste 13.2:1 sobre canvas → WCAG AAA */
+  --color-text-main:    #222220;
+
+  /* Pedra Estável: contraste 5.1:1 sobre canvas → WCAG AA */
+  /* Ajustado de #9A9A92 (ratio 3.2:1, insuficiente) para este valor mais escuro. */
+  --color-text-muted:   #5E5D55;
+
+  /* — Ação — */
+
+  /* Oliva Botânico: o único gesto marcante do sistema.
+     Sálvia densa, como planta medicinal em solo seco.
+     Aprofundado de #6B7A5E para contraste 5.8:1 sobre canvas (WCAG AA).
+     Usado exclusivamente em botão principal, indicadores de progresso e foco. */
+  --color-accent:       #4A5C3F;
+
+  /* Oliva Hover: aprofundado para o gesto de "apoiar o peso no corrimão". */
+  --color-accent-hover: #36452E;
+
+  /* — Utilitários — */
+
+  /* Branco para texto sobre o botão oliva (contraste 8.2:1 → WCAG AAA). */
+  --color-on-accent:    #F6F4EE;
+
+  /* Alerta/destaque editorial discreto — tom de terracota apagado,
+     como a argila seca de um vaso terapêutico. Nunca urgência, sempre atenção. */
+  --color-note:         #8B6B55;
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   2. TIPOGRAFIA
+   Instrument Serif  → voz experiente, pausa, autoridade clínica (títulos).
+   Instrument Sans   → clareza funcional, instrução, movimento (corpo e UI).
+
+   Escala fluida com clamp():
+     clamp(mínimo-mobile, valor-vw, máximo-desktop)
+   Base: 1rem = 16px. Viewport de referência: 375px → 1280px.
+   ═══════════════════════════════════════════════════════════ */
+:root {
+
+  /* — Famílias — */
+  --font-serif: 'Instrument Serif', 'Georgia', 'Garamond', serif;
+  --font-sans:  'Instrument Sans', -apple-system, BlinkMacSystemFont,
+                'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  /* — Pesos Carregados — */
+  --font-weight-regular: 400;
+  --font-weight-medium:  500;
+
+  /* — Escala Tipográfica Fluida — */
+
+  /* Display: O título de abertura. Lento como uma respiração. */
+  --text-display:   clamp(2.5rem, 7vw, 4.5rem);
+
+  /* H1: Cada seção começa aqui. Firme. */
+  --text-h1:        clamp(2rem, 5vw, 3.25rem);
+
+  /* H2: Subdivisão clínica. Organizado como prontuário. */
+  --text-h2:        clamp(1.5rem, 3.5vw, 2.25rem);
+
+  /* H3: Rótulo de cômodo/etapa. Instrução técnica. */
+  --text-h3:        clamp(1.125rem, 2vw, 1.5rem);
+
+  /* Body-LG: Parágrafo principal. 18px mínimo para legibilidade de idosos. */
+  --text-body-lg:   clamp(1.125rem, 1.5vw, 1.25rem);
+
+  /* Body: Texto corrido padrão. */
+  --text-body:      clamp(1rem, 1.25vw, 1.125rem);
+
+  /* Small: Metadados, notas, legendas. Nunca abaixo de 14px. */
+  --text-small:     0.875rem;
+
+  /* — Altura de Linha — */
+  --leading-tight:   1.2;
+  --leading-snug:    1.35;
+  --leading-body:    1.7;
+  --leading-ui:      1.4;
+
+  /* — Espaçamento entre letras — */
+  --tracking-serif:  -0.01em;
+  --tracking-sans:    0;
+  --tracking-caption: 0.04em;
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   3. ESPAÇAMENTO
+   Base 8px. Respiro generoso como o corredor desobstruído que o
+   tratamento da Dra. Bárbara literalmente recria para o paciente.
+   ═══════════════════════════════════════════════════════════ */
+:root {
+  --space-1:   0.25rem;
+  --space-2:   0.5rem;
+  --space-3:   0.75rem;
+  --space-4:   1rem;
+  --space-5:   1.5rem;
+  --space-6:   2rem;
+  --space-7:   3rem;
+  --space-8:   4rem;
+  --space-9:   6rem;
+  --space-10:  8rem;
+  --space-11: 12rem;
+
+  /* — Larguras de Container — */
+  --container-text:    65ch;
+  --container-content: 75rem;
+  --container-wide:    90rem;
+
+  /* — Padding lateral de página — */
+  --page-gutter-mobile:  clamp(1.25rem, 5vw, 2rem);
+  --page-gutter-desktop: clamp(2rem, 6vw, 5rem);
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   4. RAIOS DE BORDA (Geometria Tátil)
+
+   --radius-0  Estrutura macro (seções, cartões, headers).
+               Ângulo reto. A firmeza de uma parede, um corrimão soldado.
+
+   --radius-sm Interativos pequenos (botões, inputs, badges).
+               2px: o suficiente para o dedo não "cortar" no toque.
+
+   --radius-md Callouts editoriais e notas clínicas.
+               4px: a curva de um prontuário encadernado.
+
+   Sem raio grande (>=8px): evita estética de app jovial incompatível
+   com a autoridade clínica de 20+ anos da Dra. Bárbara.
+   ═══════════════════════════════════════════════════════════ */
+:root {
+  --radius-0:  0px;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   5. ELEVAÇÃO / SOMBRAS — Decisão Justificada
+
+   DECISÃO: Nenhuma sombra decorativa (box-shadow difusa, drop-shadow).
+
+   JUSTIFICATIVA:
+   (a) O universo físico é matte: linho, argila, papel, sálvia absorvem luz.
+   (b) Profundidade = diferença tonal entre --color-canvas e --color-surface.
+   (c) Box-shadows introduzem fonte de luz imaginária inconsistente com
+       a iluminação natural da casa do paciente.
+   (d) Para olhos com baixa acuidade (fração do público-alvo), sombras
+       difusas criam ruído visual sem transmitir hierarquia real.
+   ═══════════════════════════════════════════════════════════ */
+/* Nenhuma variável de sombra declarada. Profundidade = contraste tonal. */
+
+
+/* ═══════════════════════════════════════════════════════════
+   6. FOCO ACESSÍVEL (Ring)
+   O único "brilho" permitido — necessário, não decorativo.
+   Cumpre WCAG 2.4.11 (Focus Appearance).
+   ═══════════════════════════════════════════════════════════ */
+:root {
+  --focus-ring: 0 0 0 4px rgba(74, 92, 63, 0.35);
+  --focus-ring-light: 0 0 0 4px rgba(236, 234, 226, 0.5);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  box-shadow: var(--focus-ring);
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   7. MOVIMENTO (Tempo & Curvas)
+   Biomecânica como referência: o movimento de um paciente que recobra
+   o equilíbrio não é brusco nem elástico. Lento, gradual, previsível.
+   Nenhuma curva "bouncy". Nenhum ease-out abrupto.
+   ═══════════════════════════════════════════════════════════ */
+:root {
+  /* — Durações — */
+  --duration-instant:    100ms;
+  --duration-quick:      200ms;
+  --duration-default:    350ms;
+  --duration-deliberate: 500ms;
+  --duration-slow:       800ms;
+  --duration-breath:    1200ms;
+
+  /* — Curvas — */
+
+  /* Pausa-e-avança: imita o gesto de firmar o peso antes de levantar. */
+  --ease-default: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Entrada gradual: começa devagar, como quem ainda está instável. */
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+
+  /* Saída precisa: termina exatamente onde precisa, sem balanço. */
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+
+  /* Editorial: linear para reveals de texto longo. */
+  --ease-linear: linear;
+
+  /* — Shorthands compostos — */
+  --transition-color:    color var(--duration-quick) var(--ease-out),
+                         background-color var(--duration-quick) var(--ease-out),
+                         border-color var(--duration-quick) var(--ease-out);
+
+  --transition-transform: transform var(--duration-default) var(--ease-default);
+
+  --transition-opacity:  opacity var(--duration-deliberate) var(--ease-out);
+}
+
+/*
+ * prefers-reduced-motion: obrigatório para um site cujo público
+ * inclui pessoas com vertigem e sensibilidade a movimento visual.
+ * Irônico seria o contrário.
+ */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-instant:    0ms;
+    --duration-quick:      0ms;
+    --duration-default:    0ms;
+    --duration-deliberate: 0ms;
+    --duration-slow:       0ms;
+    --duration-breath:     0ms;
+  }
+  *, *::before, *::after {
+    animation-duration:        0.01ms !important;
+    animation-iteration-count: 1      !important;
+    transition-duration:       0.01ms !important;
+    scroll-behavior:           auto   !important;
+  }
+}

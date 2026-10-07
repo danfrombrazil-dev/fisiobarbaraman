@@ -1,0 +1,552 @@
+/*
+ * scroll-story.css — Fisio Barbara Man
+ * Interação central: percurso coreografado por scroll.
+ *
+ * ÍNDICE
+ *   1. Interação Central (Hero SVG / Planta Baixa)
+ *   2. Cena do Percurso — Seção Pinned
+ *   3. Estados de Reveal por seção (ritmos distintos)
+ *   4. Indicador de Progresso
+ *   5. Reduced Motion — versão estática equivalente
+ *   6. Ilustrações SVG dos Atos
+ */
+
+
+/* ═══════════════════════════════════════════════════════════
+   1. INTERAÇÃO CENTRAL — Planta baixa animada no Hero
+   ═══════════════════════════════════════════════════════════ */
+
+/* Remove o placeholder antigo quando o SVG real está presente */
+.interaction-slot:has(.house-journey) .interaction-placeholder {
+  display: none;
+}
+
+/* Container principal da animação */
+.house-journey {
+  width: 100%;
+  max-width: 440px;
+  aspect-ratio: 1 / 1;
+  position: relative;
+  margin: 0 auto;
+  overflow: visible;
+}
+
+/* SVG de planta baixa */
+.house-journey__svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* Traçado do percurso — desenhado por scroll */
+.journey-path {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: var(--path-length, 900);
+  stroke-dashoffset: var(--path-length, 900);
+  opacity: 0.85;
+  transition: none;
+}
+
+/* Cômodos: paredes — sempre visíveis */
+.room-walls {
+  fill: none;
+  stroke: var(--color-border);
+  stroke-width: 1;
+}
+
+/* Portas dos cômodos */
+.room-door {
+  fill: none;
+  stroke: var(--color-border);
+  stroke-width: 0.7;
+  stroke-dasharray: 2 1;
+}
+
+/* Rótulos dos cômodos */
+.room-label {
+  font-family: var(--font-sans);
+  font-size: 7px;
+  fill: var(--color-text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity var(--duration-deliberate) var(--ease-out);
+}
+
+.room-label.is-revealed {
+  opacity: 1;
+}
+
+/* Ponto de posição do paciente */
+.journey-dot {
+  r: 4;
+  fill: var(--color-accent);
+  opacity: 0;
+  will-change: opacity;
+  filter: none;
+}
+
+.journey-dot.is-active {
+  opacity: 1;
+}
+
+/* Halo ao redor do dot */
+.journey-dot-ring {
+  r: 9;
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 0.8;
+  opacity: 0;
+  will-change: opacity;
+}
+
+.journey-dot-ring.is-active {
+  opacity: 0.35;
+}
+
+/* Legenda inferior da interação */
+.house-journey__caption {
+  margin-top: var(--space-4);
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  letter-spacing: var(--tracking-caption);
+  opacity: 0;
+  transform: translateY(4px);
+  will-change: opacity, transform;
+}
+
+.house-journey__caption.is-ready {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity var(--duration-deliberate) var(--ease-out),
+              transform var(--duration-deliberate) var(--ease-out);
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   2. CENA DO PERCURSO — Seção Pinned
+   A seção fica fixada enquanto o scroll avança internamente.
+   ═══════════════════════════════════════════════════════════ */
+
+/* Container que define a altura total do scroll da cena */
+.scene-pin-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.servicos__intro-container {
+  padding: var(--space-11) var(--page-gutter-mobile);
+  max-width: var(--container-content);
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+@media (min-width: 768px) {
+  .servicos__intro-container {
+    padding: var(--space-12) var(--page-gutter-desktop) var(--space-10);
+    min-height: 40vh;
+    display: flex;
+    align-items: center;
+  }
+}
+
+/* O painel que fica fixo durante o pin */
+.scene-stage {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: 100%;
+  background: var(--color-canvas);
+  position: relative;
+  z-index: 2;
+}
+
+@media (min-width: 768px) {
+  .scene-stage {
+    flex-direction: row;
+    min-height: 100vh;
+    align-items: stretch;
+  }
+}
+
+/* Lado esquerdo: narrativa textual que troca de ato */
+.scene-text-panel {
+  padding: var(--space-8) var(--page-gutter-mobile);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  flex: 1;
+  min-height: 50vh;
+  background: var(--color-canvas);
+}
+
+@media (min-width: 768px) {
+  .scene-text-panel {
+    padding: var(--space-9) var(--page-gutter-desktop);
+    min-height: 100vh;
+    flex: 0 0 50%;
+    max-width: 50%;
+    background: var(--color-canvas);
+  }
+}
+
+/* Cada ato de texto: empilhados, só um visível */
+.scene-act {
+  position: absolute;
+  top: 50%;
+  left: var(--page-gutter-mobile);
+  right: var(--page-gutter-mobile);
+  transform: translateY(-50%) translateY(30px);
+  opacity: 0;
+  pointer-events: none;
+  will-change: opacity, transform;
+}
+
+@media (min-width: 768px) {
+  .scene-act {
+    left: var(--page-gutter-desktop);
+    right: var(--page-gutter-desktop);
+  }
+}
+
+.scene-act.is-active {
+  opacity: 1;
+  transform: translateY(-50%);
+  pointer-events: auto;
+}
+
+/* Número do ato */
+.scene-act__num {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  color: var(--color-accent);
+  letter-spacing: var(--tracking-caption);
+  margin-bottom: var(--space-4);
+  display: block;
+  opacity: 0.75;
+}
+
+/* Título do ato */
+.scene-act__title {
+  font-family: var(--font-serif);
+  font-size: var(--text-h2);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-serif);
+  color: var(--color-text-main);
+  margin-bottom: var(--space-5);
+}
+
+/* Corpo do ato */
+.scene-act__body {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-lg);
+  line-height: var(--leading-body);
+  color: var(--color-text-muted);
+  max-width: 44ch;
+  margin-bottom: var(--space-5);
+}
+
+/* Tags do ato */
+.scene-act__tags {
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+  letter-spacing: var(--tracking-caption);
+  opacity: 0.65;
+}
+
+/* Lado direito: ilustração visual de cada ato */
+.scene-visual-panel {
+  background: var(--color-surface);
+  position: relative;
+  overflow: hidden;
+  min-height: 40vh;
+  flex: 0 0 100%;
+}
+
+@media (min-width: 768px) {
+  .scene-visual-panel {
+    flex: 0 0 50%;
+    max-width: 50%;
+    min-height: 100vh;
+  }
+}
+
+/* Cenas visuais — uma por ato */
+.scene-visual {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8);
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+.scene-visual.is-active {
+  opacity: 1;
+}
+
+/* Indicador de progresso dos atos */
+.scene-progress {
+  position: absolute;
+  left: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 10;
+}
+
+@media (max-width: 767px) {
+  .scene-progress {
+    display: none;
+  }
+}
+
+.scene-progress__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-border);
+  transition: background-color var(--duration-default) var(--ease-out),
+              transform var(--duration-default) var(--ease-out);
+}
+
+.scene-progress__dot.is-active {
+  background: var(--color-accent);
+  transform: scale(1.5);
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   3. ESTADOS DE REVEAL — Ritmos distintos por seção
+   (O GSAP anima transform e opacity no scrollTrigger;
+    o CSS mantém visibilidade padrão acessível)
+   ═══════════════════════════════════════════════════════════ */
+
+/* Vinco antes do heading */
+.apresentacao__vinco {
+  transform-origin: left center;
+  will-change: transform;
+}
+
+/* Headline */
+.apresentacao__lead {
+  will-change: clip-path;
+}
+
+/* Body e Actions */
+.apresentacao__body,
+.apresentacao__actions {
+  will-change: opacity, transform;
+}
+
+/* Intro dos serviços */
+.servicos__intro p {
+  will-change: clip-path;
+}
+
+/* Sobre */
+.sobre__photo-col,
+.sobre__text-col,
+.sobre__name,
+.sobre__subtitle,
+.sobre__quote,
+.sobre__bio,
+.sobre__credentials {
+  will-change: opacity, transform;
+}
+
+/* Contato */
+.contato__statement,
+.contato__steps-col,
+.contato__cta-block,
+.contato__step {
+  will-change: opacity, transform;
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   4. INDICADOR DE PROGRESSO LATERAL
+   ═══════════════════════════════════════════════════════════ */
+
+.scroll-progress-track {
+  position: fixed;
+  right: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  height: clamp(80px, 18vh, 140px);
+  width: 1px;
+  background: var(--color-border);
+  z-index: 50;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duration-deliberate) var(--ease-out);
+}
+
+.scroll-progress-track.is-visible {
+  opacity: 1;
+}
+
+.scroll-progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0%;
+  background: var(--color-accent);
+  transition: none;
+  will-change: height;
+}
+
+@media (max-width: 767px) {
+  .scroll-progress-track {
+    display: none;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   5. REDUCED MOTION — versão estática equivalente
+   Todo conteúdo acessível, nenhuma dependência de movimento.
+   ═══════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  .apresentacao__vinco        { transform: scaleX(1) !important; }
+  .apresentacao__lead         { clip-path: none !important; }
+  .apresentacao__body,
+  .apresentacao__actions,
+  .sobre__photo-col,
+  .sobre__text-col,
+  .sobre__name,
+  .sobre__subtitle,
+  .sobre__quote,
+  .sobre__bio,
+  .sobre__credentials,
+  .contato__statement,
+  .contato__steps-col,
+  .contato__cta-block,
+  .contato__step              { opacity: 1 !important; transform: none !important; }
+
+  .servicos__intro p          { clip-path: none !important; }
+  .servicos__intro-container  { opacity: 1 !important; transform: none !important; }
+
+  .journey-path               { stroke-dashoffset: 0 !important; opacity: 0.8 !important; }
+  .room-label                 { opacity: 1 !important; }
+  .journey-dot,
+  .journey-dot-ring           { opacity: 0 !important; }
+  .house-journey__caption     { opacity: 1 !important; transform: none !important; }
+
+  /* Cena pinned: exibe todos os atos em modo lista */
+  .scene-act {
+    position: static !important;
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+    margin-bottom: var(--space-8);
+  }
+
+  /* Força layout de coluna única no modo reduced */
+  .scene-stage {
+    flex-direction: column !important;
+  }
+
+  .scene-visual-panel {
+    min-height: 0 !important;
+    height: auto !important;
+  }
+
+  .scene-visual {
+    opacity: 1 !important;
+    position: static !important;
+    display: flex !important;
+  }
+
+  .scene-text-panel {
+    position: static !important;
+    min-height: auto !important;
+  }
+
+  .scroll-progress-track      { display: none !important; }
+  .scene-progress             { display: none !important; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   6. ILUSTRAÇÕES SVG DOS ATOS
+   ═══════════════════════════════════════════════════════════ */
+
+.scene-svg {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  overflow: visible;
+}
+
+/* Elementos animáveis internos às cenas */
+.scene-anim {
+  will-change: transform, opacity;
+}
+
+/* Cena VPPB: cristal e labirinto */
+.vppb-canal {
+  fill: none;
+  stroke: var(--color-text-muted);
+  stroke-width: 1.2;
+  opacity: 0.4;
+}
+
+.vppb-crystal {
+  fill: var(--color-accent);
+  opacity: 0.7;
+}
+
+.vppb-crystal-trail {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 0.8;
+  stroke-dasharray: 2 2;
+  opacity: 0.3;
+}
+
+/* Cena Quedas: corredor em perspectiva */
+.quedas-floor { fill: var(--color-surface); }
+.quedas-wall  { fill: var(--color-border); opacity: 0.3; }
+.quedas-handrail {
+  stroke: var(--color-text-muted);
+  stroke-width: 2;
+  stroke-linecap: round;
+  fill: none;
+  opacity: 0.5;
+}
+.quedas-figure {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+}
+
+/* Cena Osteopatia: grade corporal */
+.osteo-outline {
+  fill: none;
+  stroke: var(--color-text-muted);
+  stroke-width: 0.8;
+  opacity: 0.35;
+}
+
+.osteo-accent {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 1;
+  opacity: 0.6;
+}

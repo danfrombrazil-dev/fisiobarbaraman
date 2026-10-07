@@ -1,0 +1,996 @@
+/*
+ * site.css — Fisio Barbara Man
+ * Todos os valores vêm de design-tokens.css.
+ * Nenhum valor solto: cores, tamanhos e tempos sempre via variável.
+ *
+ * ÍNDICE
+ *   0. Reset & Base
+ *   1. Utilitários & Botões
+ *   2. Navegação
+ *   3. Apresentação (Seção 1)
+ *   4. Serviços — O Percurso (Seção 2)
+ *   5. Sobre (Seção 3)
+ *   6. Contato (Seção 4)
+ *   7. Rodapé
+ *   8. Botão Flutuante WhatsApp
+ *   9. Reveal de Scroll
+ */
+
+
+/* ═══════════════════════════════════════════
+   0. RESET & BASE
+   ═══════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+img, svg { display: block; max-width: 100%; }
+button { cursor: pointer; font: inherit; }
+
+body {
+  background-color: var(--color-canvas);
+  color: var(--color-text-main);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  font-weight: var(--font-weight-regular);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Skip link acessível */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--space-4);
+  z-index: 9999;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: top var(--duration-quick) var(--ease-out);
+}
+.skip-link:focus { top: var(--space-4); }
+
+/* Wrapper de seção */
+.section {
+  padding-top: var(--space-10);
+  padding-bottom: var(--space-10);
+  padding-left: var(--page-gutter-mobile);
+  padding-right: var(--page-gutter-mobile);
+}
+@media (min-width: 768px) {
+  .section {
+    padding-left: var(--page-gutter-desktop);
+    padding-right: var(--page-gutter-desktop);
+  }
+}
+
+/* Container de conteúdo centralizado */
+.inner {
+  max-width: var(--container-content);
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+
+/* ═══════════════════════════════════════════
+   1. UTILITÁRIOS & BOTÕES
+   ═══════════════════════════════════════════ */
+
+/* Botão primário: oliva sólido, seta que avança */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-on-accent);
+  background: var(--color-accent);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: var(--space-4) var(--space-6);
+  text-decoration: none;
+  line-height: var(--leading-ui);
+  min-height: 48px;
+  transition: var(--transition-color),
+              transform var(--duration-quick) var(--ease-out);
+  cursor: pointer;
+  white-space: normal;
+  text-align: left;
+}
+.btn-primary:hover {
+  background: var(--color-accent-hover);
+  transform: translateY(-1px);
+}
+.btn-primary:active { transform: translateY(0); }
+
+.btn-icon {
+  flex-shrink: 0;
+  transition: transform var(--duration-default) var(--ease-default);
+}
+.btn-primary:hover .btn-icon { transform: translateX(3px); }
+
+/* Botão texto: link discreto com sublinhado semântico */
+.btn-text {
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-muted);
+  text-decoration: none;
+  padding: var(--space-3) 0;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border);
+  transition: color var(--duration-quick) var(--ease-out),
+              border-color var(--duration-quick) var(--ease-out);
+}
+.btn-text:hover {
+  color: var(--color-text-main);
+  border-color: var(--color-text-main);
+}
+
+/* Placeholder de imagem */
+.img-placeholder {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-0);
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+}
+.img-placeholder svg { width: 100%; height: 100%; }
+.img-placeholder__label {
+  position: absolute;
+  bottom: var(--space-3);
+  left: var(--space-3);
+  right: var(--space-3);
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  letter-spacing: var(--tracking-caption);
+  background: rgba(246, 244, 238, 0.9);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  line-height: 1.4;
+}
+.img-placeholder--portrait { aspect-ratio: 3 / 4; }
+.img-placeholder--sobre    { aspect-ratio: 2 / 3; }
+
+
+/* ═══════════════════════════════════════════
+   2. NAVEGAÇÃO
+   Sticky, transparente no topo; fundo canvas + borda
+   surgem suavemente ao rolar. Sem transição de posição.
+   ═══════════════════════════════════════════ */
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--page-gutter-mobile);
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background-color var(--duration-default) var(--ease-out),
+              border-color    var(--duration-default) var(--ease-out);
+}
+@media (min-width: 768px) {
+  .site-nav {
+    padding-left: var(--page-gutter-desktop);
+    padding-right: var(--page-gutter-desktop);
+  }
+}
+.site-nav.scrolled {
+  background: var(--color-canvas);
+  border-color: var(--color-border);
+}
+
+.site-nav__brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.site-nav__name {
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-serif);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-main);
+}
+.site-nav__credential {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  letter-spacing: var(--tracking-caption);
+}
+
+.site-nav__cta {
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-accent);
+  text-decoration: none;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  transition: var(--transition-color);
+  white-space: nowrap;
+}
+.site-nav__cta:hover {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+
+/* ═══════════════════════════════════════════
+   3. APRESENTAÇÃO — Seção 1
+   Composição assimétrica: texto editorial à esquerda
+   (55%), espaço reservado para interação central (45%).
+   Não é hero centralizado com botões sobre gradiente.
+   ═══════════════════════════════════════════ */
+.section-apresentacao {
+  min-height: calc(100svh - 60px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: var(--space-9);
+  padding-bottom: var(--space-9);
+}
+
+.apresentacao__grid {
+  max-width: var(--container-content);
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+}
+@media (min-width: 768px) {
+  .apresentacao__grid {
+    grid-template-columns: 55fr 45fr;
+    gap: var(--space-9);
+    align-items: center;
+  }
+}
+
+/* Vinco: linha horizontal antes do headline. Posição editorial,
+   não decoração. Marca a entrada na conversa. */
+.apresentacao__vinco {
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--color-accent);
+  margin-bottom: var(--space-6);
+}
+
+.apresentacao__lead {
+  font-family: var(--font-serif);
+  font-size: var(--text-h1);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-serif);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-main);
+  margin-bottom: var(--space-6);
+  /* Quebras de linha intencionais via <br> no HTML */
+}
+
+.apresentacao__body {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-lg);
+  line-height: var(--leading-body);
+  color: var(--color-text-muted);
+  max-width: 50ch;
+  margin-bottom: var(--space-7);
+}
+
+.apresentacao__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+@media (min-width: 480px) {
+  .apresentacao__actions {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-6);
+  }
+}
+
+/* Espaço reservado: interação central — próxima etapa.
+   Aspecto quadrado, borda tracejada, sem sombra. */
+.interaction-slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.interaction-placeholder {
+  width: 100%;
+  max-width: 440px;
+  aspect-ratio: 1 / 1;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-0);
+  background: var(--color-surface);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-5);
+  color: var(--color-text-muted);
+  margin: 0 auto;
+}
+.interaction-placeholder__icon {
+  width: 72px;
+  height: 72px;
+  color: var(--color-border);
+  flex-shrink: 0;
+}
+.interaction-placeholder__label {
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+  text-align: center;
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-caption);
+}
+.interaction-placeholder__label span {
+  display: block;
+  color: var(--color-border);
+  font-size: 0.7rem;
+  margin-top: var(--space-1);
+}
+
+/* Linha divisória abaixo do grid da apresentação */
+.apresentacao__rule {
+  max-width: var(--container-content);
+  margin: var(--space-8) auto 0;
+  height: 1px;
+  background: var(--color-border);
+}
+
+
+/* ═══════════════════════════════════════════
+   4. SERVIÇOS — O PERCURSO PELA CASA (Seção 2)
+   Três composições completamente distintas.
+   ═══════════════════════════════════════════ */
+.section-servicos {
+  background: var(--color-canvas);
+}
+
+/* Abertura da seção: frase editorial, não etiqueta */
+.servicos__intro {
+  max-width: var(--container-content);
+  margin: 0 auto var(--space-10);
+}
+.servicos__intro p {
+  font-family: var(--font-serif);
+  font-size: var(--text-h2);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-serif);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-main);
+  max-width: 30ch;
+}
+
+/* Separador entre serviços */
+.servicos__rule {
+  max-width: var(--container-content);
+  margin: var(--space-9) auto;
+  height: 1px;
+  background: var(--color-border);
+}
+
+/* Container de artigo */
+.servico {
+  max-width: var(--container-content);
+  margin: 0 auto;
+}
+
+/* ── COMPOSIÇÃO A: Conteúdo numérico + Ilustração SVG (VPPB) ── */
+/* Layout: grid 1 coluna → [texto  | ilustração] em desktop */
+.servico-a__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  align-items: center;
+}
+@media (min-width: 768px) {
+  .servico-a__grid {
+    grid-template-columns: 3fr 2fr;
+    gap: var(--space-10);
+  }
+}
+
+/* Número + Texto lado a lado (âncora + conteúdo) */
+.servico__head {
+  display: grid;
+  grid-template-columns: 3.5ch 1fr;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+.servico__number {
+  font-family: var(--font-serif);
+  font-size: var(--text-h2);
+  color: var(--color-border);
+  line-height: 1.1;
+  font-weight: var(--font-weight-regular);
+  padding-top: 3px;
+  user-select: none;
+  transition: color var(--duration-default) var(--ease-out);
+}
+.servico:hover .servico__number { color: var(--color-accent); }
+
+.servico__title {
+  font-family: var(--font-serif);
+  font-size: var(--text-h2);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-serif);
+  font-weight: var(--font-weight-regular);
+  margin-bottom: var(--space-5);
+}
+
+.servico__desc {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-lg);
+  line-height: var(--leading-body);
+  color: var(--color-text-muted);
+  max-width: 54ch;
+  margin-bottom: var(--space-4);
+}
+
+.servico__tags {
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+  letter-spacing: var(--tracking-caption);
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-4);
+  margin-top: var(--space-5);
+}
+
+/* Ilustração SVG do labirinto vestibular */
+.servico__illustration {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+.svg-labirinto {
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+}
+.illustration-caption {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  color: var(--color-border);
+  letter-spacing: var(--tracking-caption);
+  text-align: center;
+}
+
+
+/* ── COMPOSIÇÃO B: Imagem à esquerda + Texto à direita (Quedas) ── */
+/* Fundo surface: mudança tonal sem sombra. */
+.servico-b {
+  background: var(--color-surface);
+  margin-left: calc(-1 * var(--page-gutter-mobile));
+  margin-right: calc(-1 * var(--page-gutter-mobile));
+  padding: var(--space-9) var(--page-gutter-mobile);
+}
+@media (min-width: 768px) {
+  .servico-b {
+    margin-left: calc(-1 * var(--page-gutter-desktop));
+    margin-right: calc(-1 * var(--page-gutter-desktop));
+    padding-left: var(--page-gutter-desktop);
+    padding-right: var(--page-gutter-desktop);
+  }
+}
+.servico-b__inner {
+  max-width: var(--container-content);
+  margin: 0 auto;
+}
+
+.servico-b__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  align-items: center;
+}
+@media (min-width: 768px) {
+  .servico-b__grid {
+    grid-template-columns: 2fr 3fr;
+    gap: var(--space-10);
+  }
+}
+
+/* Número alinhado à direita no bloco B (contraste visual com A) */
+.servico-b__number {
+  font-family: var(--font-serif);
+  font-size: var(--text-h2);
+  color: var(--color-border);
+  line-height: 1.1;
+  font-weight: var(--font-weight-regular);
+  user-select: none;
+  text-align: right;
+  margin-bottom: var(--space-4);
+  transition: color var(--duration-default) var(--ease-out);
+}
+.servico-b:hover .servico-b__number { color: var(--color-accent); }
+
+.servico-b__desc { max-width: 52ch; }
+
+
+/* ── COMPOSIÇÃO C: Declaração em duas colunas (Osteopatia) ── */
+/* Sem número visível à esquerda; título grande ocupa coluna inteira. */
+.servico-c__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+@media (min-width: 768px) {
+  .servico-c__grid {
+    grid-template-columns: 5fr 7fr;
+    gap: var(--space-10);
+    align-items: start;
+  }
+}
+
+.servico-c__heading-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.servico-c__number {
+  font-family: var(--font-serif);
+  font-size: var(--text-h2);
+  color: var(--color-border);
+  line-height: 1;
+  font-weight: var(--font-weight-regular);
+  user-select: none;
+  transition: color var(--duration-default) var(--ease-out);
+}
+.servico-c:hover .servico-c__number { color: var(--color-accent); }
+
+.servico-c__title {
+  font-family: var(--font-serif);
+  font-size: var(--text-h1);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-serif);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-main);
+}
+
+.servico-c__body-block {}
+.servico-c__desc {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-lg);
+  line-height: var(--leading-body);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-6);
+}
+
+/* Tags de técnicas: parecem fichas, não pílulas coloridas */
+.technique-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.technique-tag {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3);
+  letter-spacing: var(--tracking-caption);
+  line-height: 1.4;
+}
+
+
+/* ═══════════════════════════════════════════
+   5. SOBRE — Seção 3
+   Editorial assimétrica: foto coluna esquerda,
+   nome em Instrument Serif display + credenciais
+   em dl estruturado à direita. Fundo surface.
+   ═══════════════════════════════════════════ */
+.section-sobre {
+  background: var(--color-surface);
+}
+
+.sobre__grid {
+  max-width: var(--container-content);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+}
+@media (min-width: 768px) {
+  .sobre__grid {
+    grid-template-columns: 5fr 7fr;
+    gap: var(--space-10);
+    align-items: start;
+  }
+}
+
+.sobre__photo-col {
+  max-width: 380px;
+  width: 100%;
+  margin-inline: auto;
+}
+@media (min-width: 768px) {
+  .sobre__photo-col {
+    max-width: 440px;
+    margin-inline: 0;
+  }
+}
+
+/* Moldura e foto editorial da Dra. Bárbara Man */
+.sobre__photo-frame {
+  position: relative;
+  margin: 0;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  overflow: hidden;
+  border-radius: var(--radius-0);
+  box-shadow: 0 4px 20px rgba(34, 34, 32, 0.05);
+}
+
+.sobre__photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  object-position: center top;
+  filter: contrast(0.98) saturate(0.96);
+  transition: transform var(--duration-slow) var(--ease-tactile), filter var(--duration-slow) var(--ease-tactile);
+}
+
+.sobre__photo-frame:hover .sobre__photo {
+  filter: contrast(1) saturate(1);
+  transform: scale(1.015);
+}
+
+
+
+.sobre__text-col {}
+
+/* Nome em display — peso de 20 anos de carreira */
+.sobre__name {
+  font-family: var(--font-serif);
+  font-size: var(--text-h1);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-serif);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-main);
+  margin-bottom: var(--space-2);
+}
+
+.sobre__subtitle {
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+  letter-spacing: var(--tracking-caption);
+  margin-bottom: var(--space-6);
+}
+
+/* Citação: a voz da Dra. Bárbara em itálico Serif */
+.sobre__quote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--text-h3);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-serif);
+  color: var(--color-accent);
+  border-left: 2px solid var(--color-accent);
+  padding-left: var(--space-5);
+  margin: var(--space-6) 0;
+  max-width: 40ch;
+}
+
+.sobre__bio {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-lg);
+  line-height: var(--leading-body);
+  color: var(--color-text-muted);
+  max-width: 55ch;
+  margin-bottom: var(--space-4);
+}
+
+/* Credenciais como dl: faz sentido semântico e visual */
+.sobre__credentials {
+  margin-top: var(--space-7);
+  border-top: 1px solid var(--color-border);
+}
+.credential-row {
+  display: grid;
+  grid-template-columns: 10ch 1fr;
+  gap: var(--space-4);
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--color-border);
+  align-items: baseline;
+}
+.credential-row dt {
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+  letter-spacing: var(--tracking-caption);
+  line-height: var(--leading-ui);
+}
+.credential-row dd {
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  color: var(--color-text-main);
+  line-height: var(--leading-ui);
+}
+
+/* Link para consulta pública de credenciais / CREFITO-3 */
+.credential-link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--color-border);
+  text-underline-offset: 3px;
+  transition: color var(--duration-fast) var(--ease-tactile), text-decoration-color var(--duration-fast) var(--ease-tactile);
+}
+.credential-link:hover,
+.credential-link:focus-visible {
+  color: var(--color-accent);
+  text-decoration-color: var(--color-accent);
+}
+
+
+/* ═══════════════════════════════════════════
+   6. CONTATO — Seção 4
+   Grid 2 colunas em desktop:
+     Col 1: Heading + Botão WhatsApp
+     Col 2: Os três passos (lista estruturada)
+   ═══════════════════════════════════════════ */
+.section-contato {
+  background: var(--color-canvas);
+}
+
+.contato__grid {
+  max-width: var(--container-content);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-9);
+}
+@media (min-width: 768px) {
+  .contato__grid {
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--space-10);
+    row-gap: var(--space-8);
+    align-items: start;
+  }
+  .contato__statement { grid-column: 1; grid-row: 1; }
+  .contato__steps-col { grid-column: 2; grid-row: 1 / 3; }
+  .contato__cta-block { grid-column: 1; grid-row: 2; }
+}
+
+/* Heading da seção */
+.contato__heading {
+  font-family: var(--font-serif);
+  font-size: var(--text-h1);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-serif);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-main);
+  margin-bottom: var(--space-5);
+}
+.contato__desc {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-lg);
+  line-height: var(--leading-body);
+  color: var(--color-text-muted);
+  max-width: 44ch;
+}
+
+/* Passos numerados: visual de percurso, não checklist */
+.contato__steps {
+  list-style: none;
+  border-top: 1px solid var(--color-border);
+}
+.contato__step {
+  display: grid;
+  grid-template-columns: 3ch 1fr;
+  gap: var(--space-5);
+  padding: var(--space-5) 0;
+  border-bottom: 1px solid var(--color-border);
+  align-items: start;
+}
+.step__num {
+  font-family: var(--font-serif);
+  font-size: var(--text-h3);
+  color: var(--color-border);
+  line-height: 1.3;
+  font-weight: var(--font-weight-regular);
+  user-select: none;
+}
+.step__title {
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-main);
+  display: block;
+  margin-bottom: var(--space-2);
+}
+.step__desc {
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  color: var(--color-text-muted);
+  line-height: var(--leading-body);
+}
+
+/* CTA principal WhatsApp: maior que o botão de nav,
+   proporcional à importância do canal */
+.btn-whatsapp-main {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-lg);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-on-accent);
+  background: var(--color-accent);
+  border-radius: var(--radius-sm);
+  padding: var(--space-5) var(--space-7);
+  text-decoration: none;
+  line-height: var(--leading-ui);
+  min-height: 56px;
+  transition: var(--transition-color),
+              transform var(--duration-quick) var(--ease-out);
+  align-self: flex-start;
+  margin-bottom: var(--space-4);
+}
+.btn-whatsapp-main:hover {
+  background: var(--color-accent-hover);
+  transform: translateY(-1px);
+}
+.btn-whatsapp-main:active { transform: translateY(0); }
+
+.contato__area {
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+  letter-spacing: var(--tracking-caption);
+  display: block;
+}
+
+
+/* ═══════════════════════════════════════════
+   7. RODAPÉ
+   ═══════════════════════════════════════════ */
+.site-footer {
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-6) var(--page-gutter-mobile);
+}
+@media (min-width: 768px) {
+  .site-footer {
+    padding-left: var(--page-gutter-desktop);
+    padding-right: var(--page-gutter-desktop);
+  }
+}
+.footer__inner {
+  max-width: var(--container-content);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+.footer__brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.footer__name {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  letter-spacing: var(--tracking-serif);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-main);
+}
+.footer__credential {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  letter-spacing: var(--tracking-caption);
+}
+.footer__copy {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+}
+
+
+/* ═══════════════════════════════════════════
+   8. BOTÃO FLUTUANTE WHATSAPP
+   Compacto em mobile (apenas ícone),
+   com label visível em telas ≥480px.
+   Sem sombra (consistente com o sistema).
+   ═══════════════════════════════════════════ */
+.wpp-float {
+  position: fixed;
+  bottom: var(--space-6);
+  right: var(--space-5);
+  z-index: 200;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-on-accent);
+  background: var(--color-accent);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3) var(--space-4);
+  text-decoration: none;
+  min-height: 48px;
+  transition: var(--transition-color),
+              transform var(--duration-quick) var(--ease-out);
+}
+.wpp-float:hover {
+  background: var(--color-accent-hover);
+  transform: translateY(-2px);
+}
+.wpp-float:active { transform: translateY(0); }
+
+.wpp-float__label { white-space: nowrap; }
+
+/* Mobile: apenas ícone */
+@media (max-width: 479px) {
+  .wpp-float { padding: var(--space-3); }
+  .wpp-float__label { display: none; }
+}
+
+
+/* ═══════════════════════════════════════════
+   9. REVEAL DE SCROLL
+   Três tipos de entrada, nenhum igual ao outro.
+   IntersectionObserver adiciona .revealed via JS.
+   prefers-reduced-motion é tratado no JS
+   (revela imediatamente sem transição).
+   ═══════════════════════════════════════════ */
+[data-reveal] {
+  opacity: 1;
+  transform: none;
+}
+html:not(.no-js) [data-reveal]:not(.revealed) {
+  opacity: 0;
+  transition:
+    opacity   var(--duration-deliberate) var(--ease-out),
+    transform var(--duration-deliberate) var(--ease-default);
+}
+html:not(.no-js) [data-reveal="fade-up"]:not(.revealed)    { transform: translateY(20px); }
+html:not(.no-js) [data-reveal="fade-right"]:not(.revealed) { transform: translateX(-20px); }
+html:not(.no-js) [data-reveal="fade-left"]:not(.revealed)  { transform: translateX(20px); }
+
+[data-reveal].revealed {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Fallback: se JS não carregar, exibe tudo */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] { opacity: 1; transform: none; transition: none; }
+}

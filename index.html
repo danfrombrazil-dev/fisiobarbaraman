@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bárbara Man — Fisioterapia Domiciliar · Vertigem, Equilíbrio e Prevenção de Quedas</title>
+  <meta name="description" content="Fisioterapia especializada no ambiente real do paciente. O corpo reaprende onde a vida acontece: quarto, escadas e corredor. Dra. Bárbara Man, 20+ anos de experiência na Grande São Paulo.">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Bárbara Man — Fisioterapia Domiciliar">
+  <meta property="og:description" content="O quarto, o corredor, a escada. O corpo reaprende onde a vida acontece. Reabilitação de vertigem (VPPB) e prevenção de quedas no ambiente real.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#F6F4EE">
+
+  <!-- Fontes: Instrument Serif (400, 400i) + Instrument Sans (400, 500) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/design-tokens.css">
+  <link rel="stylesheet" href="css/site.css">
+  <link rel="stylesheet" href="css/scroll-story.css">
+</head>
+
+<body>
+
+  <!-- Acesso rápido por teclado / leitor de tela -->
+  <a href="#conteudo-principal" class="skip-link">Ir para o conteúdo principal</a>
+
+
+  <!-- ══════════════════════════════════════════
+       NAVEGAÇÃO
+       Sticky. Transparente no topo; fundo canvas
+       + borda surgem com JS ao rolar 60px.
+       ══════════════════════════════════════════ -->
+  <nav class="site-nav" id="site-nav" role="navigation" aria-label="Navegação principal">
+    <div class="site-nav__brand">
+      <span class="site-nav__name">Bárbara Man</span>
+      <span class="site-nav__credential">Fisioterapeuta · Domiciliar</span>
+    </div>
+    <a href="#contato" class="site-nav__cta" id="nav-cta">Solicitar avaliação</a>
+  </nav>
+
+
+  <main id="conteudo-principal">
+
+
+    <!-- ══════════════════════════════════════════
+         SEÇÃO 1 — APRESENTAÇÃO
+         Composição: editorial assimétrica.
+         Texto à esquerda (55%); espaço reservado
+         para a interação central à direita (45%).
+         Não é hero centralizado com dois botões.
+         ══════════════════════════════════════════ -->
+    <section
+      id="apresentacao"
+      class="section section-apresentacao"
+      aria-label="Apresentação"
+    >
+      <div class="apresentacao__grid">
+
+        <!-- Coluna de texto -->
+        <div class="apresentacao__text" data-reveal="fade-up">
+
+          <!-- Vinco editorial: marca a entrada, não decora -->
+          <span class="apresentacao__vinco" aria-hidden="true"></span>
+
+          <h1 class="apresentacao__lead">
+            O quarto, o corredor, a escada.<br>
+            O corpo reaprende<br>
+            onde a vida acontece.
+          </h1>
+
+          <p class="apresentacao__body">
+            O colchão que afunda ao levantar. O corredor com pouca luz à noite.
+            A hesitação diante do primeiro degrau. Dra. Bárbara Man leva mais de
+            20 anos de prática clínica até a sua casa, trabalhando a firmeza
+            e o equilíbrio nos móveis e apoios reais do seu dia a dia.
+          </p>
+
+          <div class="apresentacao__actions">
+            <a href="#contato" class="btn-primary" id="hero-cta-primary">
+              Solicitar avaliação domiciliar via WhatsApp
+              <svg
+                class="btn-icon"
+                viewBox="0 0 16 16"
+                fill="none"
+                aria-hidden="true"
+                width="16" height="16"
+              >
+                <path d="M3 8h10M9 4l4 4-4 4"
+                  stroke="currentColor" stroke-width="1.5"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            <a href="#servicos" class="btn-text" id="hero-cta-secondary">
+              Ver como funciona
+            </a>
+          </div>
+
+        </div><!-- /apresentacao__text -->
+
+
+        <!-- Coluna direita: INTERAÇÃO CENTRAL — PERCURSO REAL DOMÉSTICO -->
+        <div class="interaction-slot" id="interaction-slot" aria-label="Planta baixa interativa guiada pela rolagem">
+          <div class="house-journey" id="house-journey">
+            <svg
+              class="house-journey__svg"
+              viewBox="0 0 400 400"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <!-- Planta baixa detalhada da residência -->
+              <!-- Paredes externas -->
+              <rect x="40" y="40" width="320" height="320" class="room-walls" stroke-width="1.5" />
+              
+              <!-- Divisões de cômodos -->
+              <!-- Parede quarto (superior esquerdo) -->
+              <line x1="40" y1="180" x2="190" y2="180" class="room-walls" />
+              <!-- Parede banheiro / corredor -->
+              <line x1="190" y1="40" x2="190" y2="230" class="room-walls" />
+              <!-- Parede sala / escada -->
+              <line x1="190" y1="230" x2="360" y2="230" class="room-walls" />
+              <!-- Abertura corredor / escada -->
+              <line x1="260" y1="230" x2="260" y2="360" class="room-walls" />
+
+              <!-- Portas arquitetônicas (arcos de raio sutil) -->
+              <path d="M 190 140 A 30 30 0 0 1 160 170" class="room-door" />
+              <path d="M 230 230 A 30 30 0 0 1 200 260" class="room-door" />
+              <path d="M 330 360 A 30 30 0 0 1 300 330" class="room-door" />
+
+              <!-- Mobília esquemática de referência real -->
+              <!-- Cama (origem do paciente: levantar e vertigem VPPB) -->
+              <rect x="55" y="55" width="75" height="95" class="room-walls" stroke-dasharray="3 3" opacity="0.6" />
+              <!-- Travesseiro -->
+              <rect x="65" y="65" width="55" height="20" class="room-walls" opacity="0.4" />
+              <!-- Degraus / escada -->
+              <g opacity="0.5">
+                <line x1="270" y1="260" x2="350" y2="260" class="room-walls" stroke-dasharray="2 2" />
+                <line x1="270" y1="280" x2="350" y2="280" class="room-walls" stroke-dasharray="2 2" />
+                <line x1="270" y1="300" x2="350" y2="300" class="room-walls" stroke-dasharray="2 2" />
+                <line x1="270" y1="320" x2="350" y2="320" class="room-walls" stroke-dasharray="2 2" />
+                <line x1="270" y1="340" x2="350" y2="340" class="room-walls" stroke-dasharray="2 2" />
+              </g>
+
+              <!-- Rótulos dos cômodos -->
+              <text x="65" y="170" class="room-label" data-threshold="0.1">01. Quarto · Cama (VPPB)</text>
+              <text x="205" y="110" class="room-label" data-threshold="0.4">02. Corredor · Apoios</text>
+              <text x="270" y="248" class="room-label" data-threshold="0.75">03. Escada & Autonomia</text>
+              <text x="290" y="380" class="room-label" data-threshold="0.95">Saída / Vida Real</text>
+
+              <!-- Traçado do percurso físico (animado via GSAP scrub) -->
+              <!-- Da cabeceira da cama -> sentar -> atravessar quarto -> corredor -> descer escada -> porta -->
+              <path
+                id="journey-path"
+                class="journey-path"
+                d="M 92 110 L 92 145 Q 92 160 115 160 L 175 160 Q 210 160 210 185 L 210 240 Q 210 260 240 260 L 290 260 Q 310 260 310 280 L 310 360"
+              />
+
+              <!-- Ponto dinâmico do paciente acompanhado pelo halo -->
+              <circle class="journey-dot-ring" cx="92" cy="110" r="10" />
+              <circle class="journey-dot" cx="92" cy="110" r="4.5" />
+            </svg>
+
+            <p class="house-journey__caption">
+              O percurso real da reabilitação: da cabeceira ao chão da vida cotidiana.
+            </p>
+          </div>
+        </div><!-- /interaction-slot -->
+
+      </div><!-- /apresentacao__grid -->
+
+      <!-- Divisória visual que separa apresentação dos serviços -->
+      <div class="apresentacao__rule" aria-hidden="true"></div>
+
+    </section><!-- /section-apresentacao -->
+
+
+    <!-- ══════════════════════════════════════════
+         SEÇÃO 2 — SERVIÇOS: O PERCURSO PELA CASA
+         Três composições visuais distintas:
+         A) Conteúdo numérico + SVG técnico (VPPB)
+         B) Imagem à esquerda + texto (Quedas) [bg surface]
+         C) Declaração em duas colunas (Osteopatia)
+         ══════════════════════════════════════════ -->
+    <!-- ══════════════════════════════════════════
+         SEÇÃO 2 — SERVIÇOS: O PERCURSO COREOGRAFADO
+         Seção com scroll pinned e atos sequenciais:
+         Ato 01: VPPB / Quarto
+         Ato 02: Quedas / Corredor & Escadas
+         Ato 03: Osteopatia & Terapia Manual
+         ══════════════════════════════════════════ -->
+    <section
+      id="servicos"
+      class="section-servicos"
+      aria-label="Serviços e áreas de atuação — percurso domiciliar"
+    >
+      <!-- Frase editorial da introdução: transição antes do palco pinado -->
+      <div class="servicos__intro-container">
+        <div class="servicos__intro">
+          <p>
+            Cada atendimento começa<br>
+            por onde o problema aparece:<br>
+            no quarto, no corredor, na escada.
+          </p>
+        </div>
+      </div>
+
+      <div class="scene-pin-wrapper">
+        <div class="scene-stage">
+
+        <!-- LADO ESQUERDO: Texto dos atos em transição -->
+        <div class="scene-text-panel">
+
+          <!-- ATO 01: VPPB -->
+          <article class="scene-act is-active" id="act-vppb" aria-label="Ato 1: VPPB no travesseiro">
+            <span class="scene-act__num" aria-hidden="true">01 · VPPB NO TRAVESSEIRO</span>
+            <h2 class="scene-act__title">Vertigem posicional resolvida em poucos minutos</h2>
+            <p class="scene-act__body">
+              Ao deitar ou virar a cabeça na cama, o teto gira. Na grande maioria dos casos, são cristais soltos no labirinto (VPPB). Com manobras mecânicas precisas no próprio colchão do paciente, o alívio acontece sem remédios e de forma imediata.
+            </p>
+            <p class="scene-act__tags">
+              Manobras Otolíticas · Sem Medicamentos · Alívio no Colchão
+            </p>
+          </article>
+
+          <!-- ATO 02: Quedas -->
+          <article class="scene-act" id="act-quedas" aria-label="Ato 2: Equilíbrio e mobilidade">
+            <span class="scene-act__num" aria-hidden="true">02 · EQUILÍBRIO &amp; MOBILIDADE</span>
+            <h2 class="scene-act__title">Treino de marcha nos pisos e desníveis da sua casa</h2>
+            <p class="scene-act__body">
+              O medo de cair limita o paciente antes mesmo de qualquer tropeço. O treino de equilíbrio e propriocepção acontece no piso real, com os tapetes, os batentes e a iluminação que fazem parte da rotina diária da família.
+            </p>
+            <p class="scene-act__tags">
+              Adaptação Ambiental · Treino de Apoios · Confiança no Lar
+            </p>
+          </article>
+
+          <!-- ATO 03: Osteopatia -->
+          <article class="scene-act" id="act-osteo" aria-label="Ato 3: Terapia manual clínica">
+            <span class="scene-act__num" aria-hidden="true">03 · TERAPIA MANUAL CLÍNICA</span>
+            <h2 class="scene-act__title">Osteopatia domiciliar para dores, rigidez e mobilidade</h2>
+            <p class="scene-act__body">
+              Com mais de 20 anos de formação clínica, a Dra. Bárbara trata dores miofasciais, rigidez articular e tensões crônicas sem maca e sem pressa — utilizando a cama ou poltrona do paciente, integrando o corpo para responder com segurança ao movimento.
+            </p>
+            <p class="scene-act__tags">
+              Terapia Craniosacral · Mobilização Articular · Alívio Tátil
+            </p>
+          </article>
+
+          <!-- Indicador de atos (dots laterais) -->
+          <div class="scene-progress" aria-hidden="true">
+            <span class="scene-progress__dot is-active"></span>
+            <span class="scene-progress__dot"></span>
+            <span class="scene-progress__dot"></span>
+          </div>
+        </div>
+
+        <!-- LADO DIREITO: Ilustrações temáticas por ato -->
+        <div class="scene-visual-panel" aria-hidden="true">
+
+          <!-- VISUAL ATO 1: O Labirinto & Cristal -->
+          <div class="scene-visual is-active" id="vis-vppb">
+            <svg class="scene-svg" viewBox="0 0 260 260" fill="none">
+              <!-- Canais semicirculares minimalistas -->
+              <circle cx="130" cy="130" r="80" stroke="#DCD9CE" stroke-width="1.2" stroke-dasharray="3 3" />
+              <path d="M 70 130 C 70 80, 110 50, 150 70 C 180 85, 190 130, 150 170 C 120 200, 80 170, 110 130" class="vppb-canal" stroke-width="2" />
+              <circle cx="130" cy="130" r="14" stroke="#4A5C3F" stroke-width="1.5" />
+              <!-- Trajeto de reposicionamento do cristal -->
+              <path d="M 170 90 Q 150 140 130 130" class="vppb-crystal-trail" />
+              <circle cx="170" cy="90" r="5" class="vppb-crystal" />
+            </svg>
+          </div>
+
+          <!-- VISUAL ATO 2: Corredor em Perspectiva & Apoios -->
+          <div class="scene-visual" id="vis-quedas">
+            <svg class="scene-svg" viewBox="0 0 260 260" fill="none">
+              <!-- Perspectiva do corredor e chão -->
+              <rect width="260" height="260" class="quedas-floor" opacity="0.4" />
+              <path d="M 30 240 L 90 140 L 170 140 L 230 240 Z" class="floor-line" fill="#ECEAE2" />
+              <!-- Parede esquerda e direita -->
+              <path d="M 0 0 L 90 140 L 30 240 L 0 260 Z" class="quedas-wall" />
+              <path d="M 260 0 L 170 140 L 230 240 L 260 260 Z" class="quedas-wall" />
+              <!-- Barras de apoio laterais -->
+              <line x1="45" y1="180" x2="45" y2="210" class="quedas-handrail" />
+              <line x1="215" y1="180" x2="215" y2="210" class="quedas-handrail" />
+              <!-- Passadas no chão guiando o equilíbrio -->
+              <circle cx="115" cy="205" r="3" fill="#4A5C3F" opacity="0.6" />
+              <circle cx="145" cy="180" r="3" fill="#4A5C3F" opacity="0.75" />
+              <circle cx="125" cy="155" r="3" fill="#4A5C3F" opacity="0.9" />
+            </svg>
+          </div>
+
+          <!-- VISUAL ATO 3: Geometria Tátil Osteopática -->
+          <div class="scene-visual" id="vis-osteo">
+            <svg class="scene-svg" viewBox="0 0 260 260" fill="none">
+              <!-- Eixo axial e linhas miofasciais de equilíbrio -->
+              <line x1="130" y1="30" x2="130" y2="230" stroke="#4A5C3F" stroke-width="1.5" stroke-dasharray="4 2" />
+              <!-- Curvaturas de alinhamento e relaxamento -->
+              <ellipse cx="130" cy="80" rx="35" ry="18" class="osteo-outline" />
+              <ellipse cx="130" cy="130" rx="48" ry="24" class="osteo-accent" />
+              <ellipse cx="130" cy="185" rx="40" ry="20" class="osteo-outline" />
+              <!-- Pontos de contato terapêutico manual -->
+              <circle cx="130" cy="80" r="3.5" fill="#4A5C3F" />
+              <circle cx="130" cy="130" r="4.5" fill="#4A5C3F" />
+              <circle cx="130" cy="185" r="3.5" fill="#4A5C3F" />
+            </svg>
+          </div>
+
+        </div><!-- /scene-visual-panel -->
+
+      </div><!-- /scene-stage -->
+    </div><!-- /scene-pin-wrapper -->
+  </section><!-- /section-servicos -->
+
+
+    <!-- ══════════════════════════════════════════
+         SEÇÃO 3 — SOBRE
+         Composição: retrato à esquerda (2:3),
+         texto editorial à direita com nome em
+         display serif, citação e dl de credenciais.
+         Fundo: surface (contraste tonal com canvas).
+         ══════════════════════════════════════════ -->
+    <section
+      id="sobre"
+      class="section section-sobre"
+      aria-label="Sobre a Dra. Bárbara Man"
+    >
+      <div class="sobre__grid">
+
+        <!-- Retrato -->
+        <div class="sobre__photo-col">
+          <figure class="sobre__photo-frame">
+            <img
+              src="assets/dra-barbara-man.jpg"
+              alt="Retrato profissional da Dra. Bárbara Man, fisioterapeuta com 20+ anos de experiência especializada em reabilitação vestibular e prevenção de quedas"
+              class="sobre__photo"
+              width="682"
+              height="1024"
+              loading="lazy"
+            >
+          </figure>
+        </div>
+
+        <!-- Texto editorial -->
+        <div class="sobre__text-col" data-reveal="fade-left">
+
+          <h2 class="sobre__name">Bárbara Man</h2>
+          <p class="sobre__subtitle">Fisioterapeuta · Especialista em Reabilitação Domiciliar</p>
+
+          <blockquote class="sobre__quote" lang="pt-BR">
+            "Para entender por que um paciente hesita no degrau,
+            é preciso pisar no mesmo chão que ele."
+          </blockquote>
+
+          <p class="sobre__bio" lang="pt-BR">
+            São duas décadas entrando na casa das pessoas e compreendendo
+            o que o corpo expressa no espaço real. A Dra. Bárbara Man
+            construiu uma especialidade rara: avaliar e tratar no ambiente
+            autêntico do paciente — o colchão em que dorme, a escada que evita,
+            a poltrona em que descansa.
+          </p>
+          <p class="sobre__bio" lang="pt-BR">
+            A formação em osteopatia e reabilitação vestibular trouxe o
+            entendimento de que rigidez, dor e tontura não se tratam com pressa.
+            O paciente participa ativamente de cada ganho, redescobrindo que a
+            sua casa é um lugar de repouso e autonomia, não de alerta.
+          </p>
+
+          <dl class="sobre__credentials" aria-label="Formação e credenciais">
+            <div class="credential-row">
+              <dt>Formação</dt>
+              <dd>Graduação em Fisioterapia · Pós-graduação em Gerontologia</dd>
+            </div>
+            <div class="credential-row">
+              <dt>Especialidade</dt>
+              <dd>Osteopatia · Terapia Manual · Reequilíbrio Vestibular (VPPB)</dd>
+            </div>
+            <div class="credential-row">
+              <dt>Experiência</dt>
+              <dd>20+ anos de prática clínica · Domiciliar desde 2008</dd>
+            </div>
+            <div class="credential-row">
+              <dt>Registro</dt>
+              <dd>
+                <a
+                  href="https://www.crefito3.org.br/dsn/consultapf/buscas.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="credential-link"
+                  title="Consultar registro no CREFITO-3"
+                >CREFITO-3 · Nº 61240-F</a>
+              </dd>
+            </div>
+          </dl>
+
+        </div><!-- /sobre__text-col -->
+
+      </div><!-- /sobre__grid -->
+    </section><!-- /section-sobre -->
+
+
+    <!-- ══════════════════════════════════════════
+         SEÇÃO 4 — CONTATO
+         Composição: heading grande à esquerda +
+         passos à direita em desktop.
+         Botão WhatsApp como única ação principal.
+         Sem formulário. Sem campos. Sem espera.
+         ══════════════════════════════════════════ -->
+    <section
+      id="contato"
+      class="section section-contato"
+      aria-label="Agendamento e contato"
+    >
+      <div class="contato__grid inner">
+
+        <!-- Heading + desc -->
+        <div class="contato__statement" data-reveal="fade-up">
+          <h2 class="contato__heading">
+            O primeiro passo<br>
+            começa no WhatsApp.
+          </h2>
+          <p class="contato__desc" lang="pt-BR">
+            Uma conversa simples e direta para relatar o que está acontecendo
+            e combinarmos a data da avaliação domiciliar na Grande São Paulo.
+            Sem formulários. Sem intermediários.
+          </p>
+        </div>
+
+        <!-- Os três passos -->
+        <div class="contato__steps-col" data-reveal="fade-left">
+          <ol class="contato__steps" aria-label="Como funciona o agendamento">
+            <li class="contato__step">
+              <span class="step__num" aria-hidden="true">1</span>
+              <div>
+                <strong class="step__title">Envie uma mensagem</strong>
+                <p class="step__desc" lang="pt-BR">
+                  Conte brevemente o que está acontecendo: tontura ao virar na cama,
+                  insegurança ao caminhar ou dor persistente.
+                </p>
+              </div>
+            </li>
+            <li class="contato__step">
+              <span class="step__num" aria-hidden="true">2</span>
+              <div>
+                <strong class="step__title">Combinamos a visita</strong>
+                <p class="step__desc" lang="pt-BR">
+                  Definimos o dia e o horário em que o paciente se sente
+                  mais disposto para a avaliação domiciliar.
+                </p>
+              </div>
+            </li>
+            <li class="contato__step">
+              <span class="step__num" aria-hidden="true">3</span>
+              <div>
+                <strong class="step__title">Atendimento na sua casa</strong>
+                <p class="step__desc" lang="pt-BR">
+                  A sessão acontece no seu espaço e no seu ritmo, construindo
+                  a reabilitação em parceria com o paciente.
+                </p>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <!-- CTA: WhatsApp -->
+        <div class="contato__cta-block" data-reveal="fade-up">
+          <a
+            href="https://wa.me/5511900000000?text=Olá%20Dra.%20Bárbara%2C%20gostaria%20de%20solicitar%20uma%20avaliação%20domiciliar."
+            class="btn-whatsapp-main"
+            id="contato-whatsapp-btn"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Solicitar avaliação domiciliar via WhatsApp com a Dra. Bárbara Man"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+              width="24" height="24"
+              flex-shrink="0"
+            >
+              <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.979-1.418A9.947 9.947 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"
+                stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M8.5 10.5c.5 1.5 1.5 2.8 2.8 3.8.4.3.9.2 1.2-.1l.5-.6c.2-.3.6-.4.9-.2l1.8 1c.3.2.4.6.2.9-.6 1-1.8 1.7-3 1.4C10.4 16.3 8 13.8 7.5 11c-.2-1.2.4-2.4 1.4-3 .3-.2.7-.1.9.2l1 1.8c.2.3.1.7-.2.9l-.6.5c-.3.4-.4.8-.1 1.1z"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            Solicitar avaliação domiciliar via WhatsApp
+          </a>
+          <span class="contato__area">Atendimento domiciliar · Grande São Paulo</span>
+        </div>
+
+      </div><!-- /contato__grid -->
+    </section><!-- /section-contato -->
+
+
+  </main><!-- /main -->
+
+
+  <!-- ══════════════════════════════════════════
+       RODAPÉ
+       ══════════════════════════════════════════ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <span class="footer__name">Bárbara Man</span>
+        <span class="footer__credential">
+          Fisioterapeuta · <a
+            href="https://www.crefito3.org.br/dsn/consultapf/buscas.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="credential-link"
+            title="Consultar registro no CREFITO-3"
+          >CREFITO-3 Nº 61240-F</a>
+        </span>
+      </div>
+      <p class="footer__copy">
+        <small>© 2026 Bárbara Man. Todos os direitos reservados.</small>
+      </p>
+    </div>
+  </footer>
+
+
+  <!-- ══════════════════════════════════════════
+       BOTÃO FLUTUANTE WHATSAPP
+       Fixo no canto inferior direito.
+       Mobile: apenas ícone (label oculto via CSS).
+       ══════════════════════════════════════════ -->
+  <a
+    href="https://wa.me/5511900000000?text=Olá%20Dra.%20Bárbara%2C%20gostaria%20de%20solicitar%20uma%20avaliação%20domiciliar."
+    class="wpp-float"
+    id="wpp-float-btn"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Solicitar avaliação domiciliar via WhatsApp com a Dra. Bárbara Man"
+  >
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" width="22" height="22" style="flex-shrink:0">
+      <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.979-1.418A9.947 9.947 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"
+        stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M8.5 10.5c.5 1.5 1.5 2.8 2.8 3.8.4.3.9.2 1.2-.1l.5-.6c.2-.3.6-.4.9-.2l1.8 1c.3.2.4.6.2.9-.6 1-1.8 1.7-3 1.4C10.4 16.3 8 13.8 7.5 11c-.2-1.2.4-2.4 1.4-3 .3-.2.7-.1.9.2l1 1.8c.2.3.1.7-.2.9l-.6.5c-.3.4-.4.8-.1 1.1z"
+        stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <span class="wpp-float__label">WhatsApp</span>
+  </a>
+
+
+  <!-- Indicador sutil de percurso global / scroll progress -->
+  <div class="scroll-progress-track" aria-hidden="true">
+    <div class="scroll-progress-fill"></div>
+  </div>
+
+  <!-- GSAP 3 + ScrollTrigger (build UMD versão estável) -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="js/scroll-story.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

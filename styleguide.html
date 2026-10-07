@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guia de Estilo — Fisio Barbara Man</title>
+  <meta name="description" content="Sistema visual base para o site da Fisio Barbara Man. Paleta, tipografia e componentes-chave.">
+
+  <!-- Fontes: Instrument Serif (400) + Instrument Sans (400, 500) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/design-tokens.css">
+
+  <style>
+    /* ── Reset mínimo ─────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    img, svg { display: block; max-width: 100%; }
+    button { cursor: pointer; }
+
+    /* ── Base do documento ────────────────────────── */
+    body {
+      background-color: var(--color-canvas);
+      color: var(--color-text-main);
+      font-family: var(--font-sans);
+      font-size: var(--text-body);
+      line-height: var(--leading-body);
+      font-weight: var(--font-weight-regular);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Estrutura do guia ────────────────────────── */
+    .sg-wrap {
+      max-width: var(--container-content);
+      margin: 0 auto;
+      padding: var(--space-8) var(--page-gutter-mobile);
+    }
+
+    @media (min-width: 768px) {
+      .sg-wrap { padding-left: var(--page-gutter-desktop); padding-right: var(--page-gutter-desktop); }
+    }
+
+    .sg-section {
+      margin-bottom: var(--space-10);
+    }
+
+    .sg-section-title {
+      font-family: var(--font-sans);
+      font-size: var(--text-small);
+      font-weight: var(--font-weight-medium);
+      letter-spacing: var(--tracking-caption);
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      margin-bottom: var(--space-6);
+      padding-bottom: var(--space-3);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    /* ── Cabeçalho do guia ────────────────────────── */
+    .sg-header {
+      margin-bottom: var(--space-10);
+      padding-bottom: var(--space-8);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .sg-header-kicker {
+      font-family: var(--font-sans);
+      font-size: var(--text-small);
+      color: var(--color-text-muted);
+      letter-spacing: var(--tracking-caption);
+      margin-bottom: var(--space-4);
+    }
+
+    .sg-header-title {
+      font-family: var(--font-serif);
+      font-size: var(--text-h1);
+      line-height: var(--leading-tight);
+      letter-spacing: var(--tracking-serif);
+      font-weight: var(--font-weight-regular);
+      max-width: 18ch;
+    }
+
+    /* ── Paleta de Cores ──────────────────────────── */
+    .sg-palette {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: var(--space-4);
+    }
+
+    .sg-swatch {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sg-swatch-color {
+      height: 80px;
+      border: 1px solid var(--color-border);
+    }
+
+    .sg-swatch-label {
+      padding: var(--space-3) 0 0;
+    }
+
+    .sg-swatch-name {
+      font-family: var(--font-sans);
+      font-size: var(--text-small);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-main);
+      display: block;
+    }
+
+    .sg-swatch-token {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      letter-spacing: var(--tracking-caption);
+      display: block;
+      margin-top: var(--space-1);
+    }
+
+    .sg-swatch-hex {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      display: block;
+    }
+
+    .sg-swatch-contrast {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      color: var(--color-accent);
+      display: block;
+      margin-top: var(--space-1);
+    }
+
+    /* ── Escala Tipográfica ───────────────────────── */
+    .sg-type-scale { display: flex; flex-direction: column; gap: var(--space-7); }
+
+    .sg-type-row {
+      display: grid;
+      align-items: start;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+      .sg-type-row { grid-template-columns: 12ch 1fr; }
+    }
+
+    .sg-type-meta {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      letter-spacing: var(--tracking-caption);
+      padding-top: var(--space-2);
+    }
+
+    .sg-type-meta strong {
+      display: block;
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-main);
+      margin-bottom: var(--space-1);
+      font-size: var(--text-small);
+    }
+
+    /* Amostras tipográficas com texto real do negócio */
+    .sample-display {
+      font-family: var(--font-serif);
+      font-size: var(--text-display);
+      line-height: var(--leading-tight);
+      letter-spacing: var(--tracking-serif);
+      font-weight: var(--font-weight-regular);
+    }
+
+    .sample-h1 {
+      font-family: var(--font-serif);
+      font-size: var(--text-h1);
+      line-height: var(--leading-tight);
+      letter-spacing: var(--tracking-serif);
+      font-weight: var(--font-weight-regular);
+    }
+
+    .sample-h2 {
+      font-family: var(--font-serif);
+      font-size: var(--text-h2);
+      line-height: var(--leading-snug);
+      letter-spacing: var(--tracking-serif);
+      font-weight: var(--font-weight-regular);
+    }
+
+    .sample-h3 {
+      font-family: var(--font-sans);
+      font-size: var(--text-h3);
+      line-height: var(--leading-snug);
+      letter-spacing: var(--tracking-sans);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .sample-body-lg {
+      font-family: var(--font-sans);
+      font-size: var(--text-body-lg);
+      line-height: var(--leading-body);
+      max-width: var(--container-text);
+    }
+
+    .sample-body {
+      font-family: var(--font-sans);
+      font-size: var(--text-body);
+      line-height: var(--leading-body);
+      max-width: var(--container-text);
+    }
+
+    .sample-small {
+      font-family: var(--font-sans);
+      font-size: var(--text-small);
+      line-height: var(--leading-ui);
+      color: var(--color-text-muted);
+      letter-spacing: var(--tracking-caption);
+    }
+
+    /* ── Raios de Borda ───────────────────────────── */
+    .sg-radii {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-6);
+    }
+
+    .sg-radius-sample {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-3);
+    }
+
+    .sg-radius-box {
+      width: 80px;
+      height: 80px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+    }
+
+    .sg-radius-label {
+      font-size: 0.75rem;
+      font-family: var(--font-sans);
+      color: var(--color-text-muted);
+    }
+
+    .sg-radius-label strong {
+      display: block;
+      color: var(--color-text-main);
+      font-weight: var(--font-weight-medium);
+    }
+
+    /* ── Movimento ────────────────────────────────── */
+    .sg-motion {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    .sg-motion-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-5);
+    }
+
+    .sg-motion-label {
+      font-size: var(--text-small);
+      font-family: var(--font-sans);
+      color: var(--color-text-muted);
+      min-width: 14ch;
+    }
+
+    .sg-motion-label strong {
+      display: block;
+      color: var(--color-text-main);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .sg-motion-bar-wrap {
+      flex: 1;
+      height: 2px;
+      background: var(--color-border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sg-motion-bar {
+      height: 100%;
+      width: 8px;
+      background: var(--color-accent);
+      position: absolute;
+      left: -8px;
+      border-radius: 0;
+    }
+
+    .sg-motion-row:hover .sg-motion-bar {
+      animation: slide-bar var(--duration) var(--ease-fn) forwards;
+    }
+
+    @keyframes slide-bar {
+      from { left: -8px; }
+      to   { left: calc(100% + 8px); }
+    }
+
+
+    /* ════════════════════════════════════════════════
+       COMPONENTES-CHAVE
+       ════════════════════════════════════════════════ */
+
+    /* ── Viewport containers ──────────────────────── */
+    .sg-viewports {
+      display: grid;
+      gap: var(--space-7);
+    }
+
+    @media (min-width: 1024px) {
+      .sg-viewports {
+        grid-template-columns: 375px 1fr;
+        align-items: start;
+      }
+    }
+
+    .sg-viewport-label {
+      font-size: 0.75rem;
+      font-family: var(--font-sans);
+      color: var(--color-text-muted);
+      letter-spacing: var(--tracking-caption);
+      margin-bottom: var(--space-4);
+      text-transform: uppercase;
+    }
+
+    .sg-viewport-frame {
+      border: 1px solid var(--color-border);
+      background: var(--color-canvas);
+      overflow: hidden;
+    }
+
+    .sg-viewport-frame--mobile {
+      width: 375px;
+      max-width: 100%;
+    }
+
+    /* ── COMPONENTE 1: Cabeçalho (Header) ─────────── */
+
+    /* Contexto: cabeçalho discreto, não hero. Presença sem barulho. */
+
+    .comp-header {
+      padding: var(--space-5) var(--space-5);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--color-border);
+      background: var(--color-canvas);
+    }
+
+    .comp-header__brand {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+
+    .comp-header__name {
+      font-family: var(--font-serif);
+      font-size: 1.125rem;
+      line-height: var(--leading-tight);
+      letter-spacing: var(--tracking-serif);
+      font-weight: var(--font-weight-regular);
+      color: var(--color-text-main);
+    }
+
+    .comp-header__specialty {
+      font-family: var(--font-sans);
+      font-size: var(--text-small);
+      color: var(--color-text-muted);
+      letter-spacing: var(--tracking-caption);
+    }
+
+    .comp-header__cta {
+      font-family: var(--font-sans);
+      font-size: var(--text-small);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-accent);
+      text-decoration: none;
+      letter-spacing: var(--tracking-caption);
+      padding: var(--space-2) var(--space-4);
+      border: 1px solid var(--color-accent);
+      border-radius: var(--radius-sm);
+      transition: var(--transition-color);
+      white-space: nowrap;
+    }
+
+    .comp-header__cta:hover {
+      background: var(--color-accent);
+      color: var(--color-on-accent);
+    }
+
+    /* Desktop: mais respiro horizontal */
+    .comp-header--desktop {
+      padding: var(--space-5) var(--space-8);
+    }
+
+    .comp-header--desktop .comp-header__name {
+      font-size: 1.25rem;
+    }
+
+
+    /* ── COMPONENTE 2: Botão Tátil ────────────────── */
+
+    /* Contexto: o único botão "principal" do site. A Dra. Bárbara não
+       grita, não pisca. Ela oferece a mão. O botão funciona assim. */
+
+    .sg-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-5);
+      align-items: center;
+    }
+
+    .sg-button-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      align-items: flex-start;
+    }
+
+    .sg-button-state-label {
+      font-size: 0.75rem;
+      font-family: var(--font-sans);
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: var(--tracking-caption);
+    }
+
+    /* Botão Primário */
+    .btn-primary {
+      font-family: var(--font-sans);
+      font-size: var(--text-body);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-on-accent);
+      background: var(--color-accent);
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: var(--space-4) var(--space-7);
+      line-height: var(--leading-ui);
+      letter-spacing: var(--tracking-sans);
+      transition: var(--transition-color), var(--transition-transform);
+      position: relative;
+      min-height: 48px; /* toque mínimo WCAG */
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .btn-primary:hover {
+      background: var(--color-accent-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:active {
+      background: var(--color-accent-hover);
+      transform: translateY(0px);
+      transition-duration: var(--duration-instant);
+    }
+
+    .btn-primary--hover {
+      background: var(--color-accent-hover);
+      transform: translateY(-1px);
+    }
+
+    /* Botão Secundário */
+    .btn-secondary {
+      font-family: var(--font-sans);
+      font-size: var(--text-body);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-accent);
+      background: transparent;
+      border: 1px solid var(--color-accent);
+      border-radius: var(--radius-sm);
+      padding: var(--space-4) var(--space-7);
+      line-height: var(--leading-ui);
+      letter-spacing: var(--tracking-sans);
+      transition: var(--transition-color);
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .btn-secondary:hover {
+      background: var(--color-accent);
+      color: var(--color-on-accent);
+    }
+
+    /* Botão WhatsApp — o canal principal de contato */
+    .btn-whatsapp {
+      font-family: var(--font-sans);
+      font-size: var(--text-body);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-main);
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: var(--space-4) var(--space-4);
+      line-height: var(--leading-ui);
+      letter-spacing: var(--tracking-sans);
+      transition: var(--transition-color);
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-3);
+      text-decoration: none;
+    }
+
+    .btn-whatsapp:hover { color: var(--color-accent); }
+
+    .btn-whatsapp__icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    /* Ícone de seta (svg inline no botão) */
+    .btn-arrow {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      transition: transform var(--duration-default) var(--ease-default);
+    }
+
+    .btn-primary:hover .btn-arrow {
+      transform: translateX(3px);
+    }
+
+
+    /* ── COMPONENTE 3: Cartão de Item Clínico ─────── */
+
+    /* Contexto: representa um cômodo/etapa de tratamento
+       (ex.: Manobra de Epley na cama, treino no degrau).
+       Sem sombra. Profundidade por contraste tonal.
+       Grid assimétrico: número/marcador à esquerda, conteúdo à direita.
+       O número é uma âncora — como o corrimão junto à parede. */
+
+    .sg-cards {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+
+    .card-item {
+      background: var(--color-canvas);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-0);
+      padding: var(--space-6) var(--space-5);
+      display: grid;
+      grid-template-columns: 3ch 1fr;
+      gap: var(--space-5);
+      align-items: start;
+      transition: border-color var(--duration-default) var(--ease-out),
+                  background-color var(--duration-default) var(--ease-out);
+      cursor: default;
+    }
+
+    .card-item:hover {
+      background: var(--color-surface);
+      border-color: var(--color-text-muted);
+    }
+
+    .card-item__number {
+      font-family: var(--font-serif);
+      font-size: var(--text-h3);
+      color: var(--color-border);
+      line-height: var(--leading-tight);
+      padding-top: 2px;
+      font-weight: var(--font-weight-regular);
+      transition: color var(--duration-default) var(--ease-out);
+      user-select: none;
+    }
+
+    .card-item:hover .card-item__number {
+      color: var(--color-accent);
+    }
+
+    .card-item__body {}
+
+    .card-item__location {
+      font-family: var(--font-sans);
+      font-size: var(--text-small);
+      color: var(--color-text-muted);
+      letter-spacing: var(--tracking-caption);
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: var(--space-2);
+    }
+
+    .card-item__title {
+      font-family: var(--font-serif);
+      font-size: var(--text-h3);
+      line-height: var(--leading-snug);
+      letter-spacing: var(--tracking-serif);
+      font-weight: var(--font-weight-regular);
+      color: var(--color-text-main);
+      margin-bottom: var(--space-3);
+    }
+
+    .card-item__desc {
+      font-family: var(--font-sans);
+      font-size: var(--text-body);
+      line-height: var(--leading-body);
+      color: var(--color-text-muted);
+      max-width: 55ch;
+    }
+
+    .card-item__link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-top: var(--space-4);
+      font-family: var(--font-sans);
+      font-size: var(--text-small);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-accent);
+      text-decoration: none;
+      letter-spacing: var(--tracking-caption);
+      transition: gap var(--duration-quick) var(--ease-out);
+    }
+
+    .card-item__link:hover {
+      gap: var(--space-3);
+    }
+
+    /* Desktop: cartão mais espaçoso */
+    .card-item--desktop {
+      padding: var(--space-7) var(--space-8);
+      grid-template-columns: 4ch 1fr;
+      gap: var(--space-7);
+    }
+
+    /* ── Nota sobre Décisões de Sombra e Raio ─────── */
+    .sg-note {
+      background: var(--color-surface);
+      border-left: 2px solid var(--color-accent);
+      border-radius: var(--radius-md);
+      padding: var(--space-5) var(--space-6);
+      font-family: var(--font-sans);
+      font-size: var(--text-body);
+      line-height: var(--leading-body);
+      color: var(--color-text-muted);
+      max-width: var(--container-text);
+    }
+
+    .sg-note strong {
+      color: var(--color-text-main);
+      font-weight: var(--font-weight-medium);
+    }
+
+    /* ── Separador de seção ───────────────────────── */
+    .sg-divider {
+      height: 1px;
+      background: var(--color-border);
+      margin: var(--space-8) 0;
+    }
+
+    /* ── Decoração: vinco editorial ───────────────── */
+    .sg-vinco {
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--color-accent);
+      margin-bottom: var(--space-5);
+    }
+
+  </style>
+</head>
+
+<body>
+
+<main class="sg-wrap">
+
+  <!-- ── Identificação do Guia ──────────────────── -->
+  <header class="sg-header">
+    <p class="sg-header-kicker">Sistema Visual · Guia de Estilo · v1.0</p>
+    <h1 class="sg-header-title">Fisio Barbara Man</h1>
+  </header>
+
+
+  <!-- ═══════════════════════════════════════════
+       SEÇÃO 1: PALETA DE CORES
+       ═══════════════════════════════════════════ -->
+  <section class="sg-section" aria-label="Paleta de cores">
+    <h2 class="sg-section-title">01 &mdash; Paleta de Cores (Matéria)</h2>
+
+    <div class="sg-palette">
+
+      <div class="sg-swatch">
+        <div class="sg-swatch-color" style="background:#F6F4EE;" aria-label="Papel Cru"></div>
+        <div class="sg-swatch-label">
+          <span class="sg-swatch-name">Papel Cru</span>
+          <span class="sg-swatch-token">--color-canvas</span>
+          <span class="sg-swatch-hex">#F6F4EE</span>
+          <span class="sg-swatch-contrast">Linho lavado · base de tudo</span>
+        </div>
+      </div>
+
+      <div class="sg-swatch">
+        <div class="sg-swatch-color" style="background:#ECEAE2;" aria-label="Névoa Suave"></div>
+        <div class="sg-swatch-label">
+          <span class="sg-swatch-name">Névoa Suave</span>
+          <span class="sg-swatch-token">--color-surface</span>
+          <span class="sg-swatch-hex">#ECEAE2</span>
+          <span class="sg-swatch-contrast">Interior de armário antigo</span>
+        </div>
+      </div>
+
+      <div class="sg-swatch">
+        <div class="sg-swatch-color" style="background:#DCD9CE;" aria-label="Vinco Tátil"></div>
+        <div class="sg-swatch-label">
+          <span class="sg-swatch-name">Vinco Tátil</span>
+          <span class="sg-swatch-token">--color-border</span>
+          <span class="sg-swatch-hex">#DCD9CE</span>
+          <span class="sg-swatch-contrast">Dobra de folha de prescrição</span>
+        </div>
+      </div>
+
+      <div class="sg-swatch">
+        <div class="sg-swatch-color" style="background:#222220;" aria-label="Grafite Profundo"></div>
+        <div class="sg-swatch-label">
+          <span class="sg-swatch-name">Grafite Profundo</span>
+          <span class="sg-swatch-token">--color-text-main</span>
+          <span class="sg-swatch-hex">#222220</span>
+          <span class="sg-swatch-contrast">AAA · 13.2:1 sobre canvas</span>
+        </div>
+      </div>
+
+      <div class="sg-swatch">
+        <div class="sg-swatch-color" style="background:#5E5D55;" aria-label="Pedra Estável"></div>
+        <div class="sg-swatch-label">
+          <span class="sg-swatch-name">Pedra Estável</span>
+          <span class="sg-swatch-token">--color-text-muted</span>
+          <span class="sg-swatch-hex">#5E5D55</span>
+          <span class="sg-swatch-contrast">AA · 5.1:1 sobre canvas</span>
+        </div>
+      </div>
+
+      <div class="sg-swatch">
+        <div class="sg-swatch-color" style="background:#4A5C3F;" aria-label="Oliva Botânico"></div>
+        <div class="sg-swatch-label">
+          <span class="sg-swatch-name">Oliva Botânico</span>
+          <span class="sg-swatch-token">--color-accent</span>
+          <span class="sg-swatch-hex">#4A5C3F</span>
+          <span class="sg-swatch-contrast">AA · 5.8:1 · gesto único</span>
+        </div>
+      </div>
+
+      <div class="sg-swatch">
+        <div class="sg-swatch-color" style="background:#36452E; border-color: #2B3422;" aria-label="Oliva Hover"></div>
+        <div class="sg-swatch-label">
+          <span class="sg-swatch-name">Oliva Hover</span>
+          <span class="sg-swatch-token">--color-accent-hover</span>
+          <span class="sg-swatch-hex">#36452E</span>
+          <span class="sg-swatch-contrast">Apoiar o peso no corrimão</span>
+        </div>
+      </div>
+
+      <div class="sg-swatch">
+        <div class="sg-swatch-color" style="background:#8B6B55; border:1px solid #DCD9CE;" aria-label="Argila Editorial"></div>
+        <div class="sg-swatch-label">
+          <span class="sg-swatch-name">Argila Editorial</span>
+          <span class="sg-swatch-token">--color-note</span>
+          <span class="sg-swatch-hex">#8B6B55</span>
+          <span class="sg-swatch-contrast">Notas · terracota apagado</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       SEÇÃO 2: ESCALA TIPOGRÁFICA
+       ═══════════════════════════════════════════ -->
+  <section class="sg-section" aria-label="Escala tipográfica">
+    <h2 class="sg-section-title">02 &mdash; Tipografia em Uso (Texto Real do Negócio)</h2>
+
+    <div class="sg-type-scale">
+
+      <div class="sg-type-row">
+        <div class="sg-type-meta">
+          <strong>Display</strong>
+          Instrument Serif · 400<br>clamp(2.5–4.5rem)
+        </div>
+        <p class="sample-display" lang="pt-BR">O chão de casa é o primeiro passo.</p>
+      </div>
+
+      <div class="sg-vinco" aria-hidden="true"></div>
+
+      <div class="sg-type-row">
+        <div class="sg-type-meta">
+          <strong>H1</strong>
+          Instrument Serif · 400<br>clamp(2–3.25rem)
+        </div>
+        <h1 class="sample-h1" lang="pt-BR">Fisioterapia no ambiente real do paciente.</h1>
+      </div>
+
+      <div class="sg-type-row">
+        <div class="sg-type-meta">
+          <strong>H2</strong>
+          Instrument Serif · 400<br>clamp(1.5–2.25rem)
+        </div>
+        <h2 class="sample-h2" lang="pt-BR">O quarto que gira. A vertigem tem solução sem remédio.</h2>
+      </div>
+
+      <div class="sg-type-row">
+        <div class="sg-type-meta">
+          <strong>H3</strong>
+          Instrument Sans · 500<br>clamp(1.125–1.5rem)
+        </div>
+        <h3 class="sample-h3" lang="pt-BR">Manobra de reposicionamento no leito</h3>
+      </div>
+
+      <div class="sg-type-row">
+        <div class="sg-type-meta">
+          <strong>Body LG</strong>
+          Instrument Sans · 400<br>clamp(1.125–1.25rem)<br>leading 1.7
+        </div>
+        <p class="sample-body-lg" lang="pt-BR">
+          Mais de 20 anos de prática ensinaram que a reabilitação mais eficaz acontece onde a vida ocorre: no quarto onde o paciente sente tontura ao virar, na escada que virou obstáculo, no corredor que ficou comprido demais. A Dra. Bárbara leva o tratamento até lá.
+        </p>
+      </div>
+
+      <div class="sg-type-row">
+        <div class="sg-type-meta">
+          <strong>Body</strong>
+          Instrument Sans · 400<br>clamp(1–1.125rem)<br>leading 1.7
+        </div>
+        <p class="sample-body" lang="pt-BR">
+          A Vertigem Posicional Paroxística Benigna (VPPB) ocorre quando pequenos cristais de carbonato de cálcio se deslocam no labirinto. Com a manobra correta de reposicionamento, realizada na própria cama do paciente, a crise cessa em minutos — sem medicamento, sem internação.
+        </p>
+      </div>
+
+      <div class="sg-type-row">
+        <div class="sg-type-meta">
+          <strong>Small</strong>
+          Instrument Sans · 400<br>0.875rem · muted
+        </div>
+        <p class="sample-small" lang="pt-BR">Fisioterapeuta · CRO-SP 00000 · Osteopatia &amp; Terapia Manual · Atendimento domiciliar · Grande São Paulo</p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       SEÇÃO 3: RAIOS E DECISÕES DE FORMA
+       ═══════════════════════════════════════════ -->
+  <section class="sg-section" aria-label="Raios de borda">
+    <h2 class="sg-section-title">03 &mdash; Geometria Tátil (Raios de Borda)</h2>
+
+    <div class="sg-radii">
+
+      <div class="sg-radius-sample">
+        <div class="sg-radius-box" style="border-radius:0px;" aria-label="Sem raio"></div>
+        <div class="sg-radius-label">
+          <strong>--radius-0 · 0px</strong>
+          Estrutura macro, seções,<br>cartões de percurso. Firmeza<br>de parede, corrimão soldado.
+        </div>
+      </div>
+
+      <div class="sg-radius-sample">
+        <div class="sg-radius-box" style="border-radius:2px;" aria-label="2px"></div>
+        <div class="sg-radius-label">
+          <strong>--radius-sm · 2px</strong>
+          Botões, inputs, badges.<br>Quina de compensado acabado:<br>não corta o dedo, não é mole.
+        </div>
+      </div>
+
+      <div class="sg-radius-sample">
+        <div class="sg-radius-box" style="border-radius:4px;" aria-label="4px"></div>
+        <div class="sg-radius-label">
+          <strong>--radius-md · 4px</strong>
+          Callouts e notas clínicas.<br>Capa de prontuário<br>encadernado.
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top: var(--space-6);">
+      <p class="sg-note">
+        <strong>Sem raio maior que 4px.</strong> Raios grandes (≥8px) sinalizam a estética de aplicativo jovial e são incompatíveis com a autoridade clínica de 20+ anos. A profundidade no sistema vem exclusivamente da diferença tonal entre <code>--color-canvas</code> e <code>--color-surface</code> — não de sombras difusas.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       SEÇÃO 4: MOVIMENTO
+       ═══════════════════════════════════════════ -->
+  <section class="sg-section" aria-label="Sistema de movimento">
+    <h2 class="sg-section-title">04 &mdash; Movimento (Passe o cursor nas barras)</h2>
+
+    <div class="sg-motion">
+
+      <div class="sg-motion-row" id="motion-instant">
+        <div class="sg-motion-label">
+          <strong>instant · 100ms</strong>
+          Active state de botão
+        </div>
+        <div class="sg-motion-bar-wrap">
+          <div class="sg-motion-bar" style="--duration: 100ms; --ease-fn: linear;"></div>
+        </div>
+      </div>
+
+      <div class="sg-motion-row" id="motion-quick">
+        <div class="sg-motion-label">
+          <strong>quick · 200ms</strong>
+          Hover de cor, foco
+        </div>
+        <div class="sg-motion-bar-wrap">
+          <div class="sg-motion-bar" style="--duration: 200ms; --ease-fn: cubic-bezier(0,0,0.2,1);"></div>
+        </div>
+      </div>
+
+      <div class="sg-motion-row" id="motion-default">
+        <div class="sg-motion-label">
+          <strong>default · 350ms</strong>
+          Componentes, reveals
+        </div>
+        <div class="sg-motion-bar-wrap">
+          <div class="sg-motion-bar" style="--duration: 350ms; --ease-fn: cubic-bezier(0.16,1,0.3,1);"></div>
+        </div>
+      </div>
+
+      <div class="sg-motion-row" id="motion-deliberate">
+        <div class="sg-motion-label">
+          <strong>deliberate · 500ms</strong>
+          Transições de layout
+        </div>
+        <div class="sg-motion-bar-wrap">
+          <div class="sg-motion-bar" style="--duration: 500ms; --ease-fn: cubic-bezier(0.16,1,0.3,1);"></div>
+        </div>
+      </div>
+
+      <div class="sg-motion-row" id="motion-slow">
+        <div class="sg-motion-label">
+          <strong>slow · 800ms</strong>
+          Revelação editorial
+        </div>
+        <div class="sg-motion-bar-wrap">
+          <div class="sg-motion-bar" style="--duration: 800ms; --ease-fn: cubic-bezier(0.16,1,0.3,1);"></div>
+        </div>
+      </div>
+
+      <div class="sg-motion-row" id="motion-breath">
+        <div class="sg-motion-label">
+          <strong>breath · 1200ms</strong>
+          Abertura — uma respiração
+        </div>
+        <div class="sg-motion-bar-wrap">
+          <div class="sg-motion-bar" style="--duration: 1200ms; --ease-fn: cubic-bezier(0.16,1,0.3,1);"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top: var(--space-6);">
+      <p class="sg-note">
+        <strong>Curva padrão: cubic-bezier(0.16, 1, 0.3, 1).</strong> Imita o gesto de firmar o peso antes de levantar da cadeira — início mais lento, chegada precisa. Nenhuma curva elástica (<em>spring/bouncy</em>). <strong>prefers-reduced-motion</strong> anula todas as durações para 0ms — obrigatório dado o público com vertigem e sensibilidade vestibular.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       SEÇÃO 5: COMPONENTES-CHAVE
+       ═══════════════════════════════════════════ -->
+  <section class="sg-section" aria-label="Componentes-chave">
+    <h2 class="sg-section-title">05 &mdash; Componentes-Chave</h2>
+
+
+    <!-- COMPONENTE A: CABEÇALHO ──────────────── -->
+    <h3 class="sg-section-title" style="margin-top: var(--space-6); font-size: var(--text-small);">A — Cabeçalho</h3>
+
+    <div class="sg-viewports">
+
+      <!-- Mobile 375px -->
+      <div>
+        <p class="sg-viewport-label">Mobile · 375px</p>
+        <div class="sg-viewport-frame sg-viewport-frame--mobile">
+          <header class="comp-header" role="banner">
+            <div class="comp-header__brand">
+              <span class="comp-header__name">Bárbara Man</span>
+              <span class="comp-header__specialty">Fisioterapeuta · Domiciliar</span>
+            </div>
+            <a href="#contato" class="comp-header__cta" id="header-cta-mobile">Agendar</a>
+          </header>
+        </div>
+      </div>
+
+      <!-- Desktop 1280px -->
+      <div>
+        <p class="sg-viewport-label">Desktop · 1280px</p>
+        <div class="sg-viewport-frame">
+          <header class="comp-header comp-header--desktop" role="banner">
+            <div class="comp-header__brand">
+              <span class="comp-header__name">Bárbara Man</span>
+              <span class="comp-header__specialty">Fisioterapeuta · Osteopatia &amp; Terapia Manual · Atendimento Domiciliar</span>
+            </div>
+            <a href="#contato" class="comp-header__cta" id="header-cta-desktop">Agendar avaliação</a>
+          </header>
+        </div>
+      </div>
+
+    </div><!-- /sg-viewports -->
+
+
+    <!-- COMPONENTE B: BOTÕES ─────────────────── -->
+    <h3 class="sg-section-title" style="margin-top: var(--space-8); font-size: var(--text-small);">B — Botão Tátil</h3>
+
+    <div class="sg-buttons">
+
+      <div class="sg-button-group">
+        <span class="sg-button-state-label">Repouso</span>
+        <button class="btn-primary" id="btn-primary-rest" type="button">
+          Agendar avaliação
+          <svg class="btn-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="sg-button-group">
+        <span class="sg-button-state-label">Hover</span>
+        <button class="btn-primary btn-primary--hover" id="btn-primary-hover" type="button" tabindex="-1" aria-hidden="true">
+          Agendar avaliação
+          <svg class="btn-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true" style="transform:translateX(3px)">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="sg-button-group">
+        <span class="sg-button-state-label">Secundário</span>
+        <button class="btn-secondary" id="btn-secondary" type="button">Saiba mais</button>
+      </div>
+
+      <div class="sg-button-group">
+        <span class="sg-button-state-label">WhatsApp</span>
+        <a href="https://wa.me/5511000000000?text=Olá%20Dra.%20Bárbara%2C%20gostaria%20de%20agendar%20uma%20avaliação%20domiciliar." class="btn-whatsapp" id="btn-whatsapp" target="_blank" rel="noopener noreferrer">
+          <svg class="btn-whatsapp__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.979-1.418A9.947 9.947 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M8.5 10.5c.5 1.5 1.5 2.8 2.8 3.8.4.3.9.2 1.2-.1l.5-.6c.2-.3.6-.4.9-.2l1.8 1c.3.2.4.6.2.9-.6 1-1.8 1.7-3 1.4C10.4 16.3 8 13.8 7.5 11c-.2-1.2.4-2.4 1.4-3 .3-.2.7-.1.9.2l1 1.8c.2.3.1.7-.2.9l-.6.5c-.3.4-.4.8-.1 1.1z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          Conversar no WhatsApp
+        </a>
+      </div>
+
+    </div><!-- /sg-buttons -->
+
+    <div style="margin-top: var(--space-5);">
+      <p class="sg-note">
+        <strong>Toque mínimo 48px</strong> em todos os botões. Um único botão primário por contexto de página. O botão de WhatsApp é o canal de entrada mais natural para o público — mensagem pré-formatada contextualiza o contato desde o primeiro toque.
+      </p>
+    </div>
+
+
+    <!-- COMPONENTE C: CARTÃO DE ITEM CLÍNICO ─── -->
+    <h3 class="sg-section-title" style="margin-top: var(--space-8); font-size: var(--text-small);">C — Cartão de Item Clínico (Percurso Doméstico)</h3>
+
+    <div class="sg-viewports">
+
+      <!-- Mobile -->
+      <div>
+        <p class="sg-viewport-label">Mobile · 375px</p>
+        <div class="sg-viewport-frame sg-viewport-frame--mobile">
+          <div class="sg-cards" style="padding: var(--space-4);">
+
+            <article class="card-item" id="card-cama">
+              <span class="card-item__number" aria-hidden="true">01</span>
+              <div class="card-item__body">
+                <span class="card-item__location">Quarto — ao lado da cama</span>
+                <h3 class="card-item__title">O quarto que gira de manhã</h3>
+                <p class="card-item__desc">Vertigem ao virar no travesseiro é o sintoma mais comum da VPPB — e tem solução precisa, sem remédio.</p>
+                <a href="#vppb" class="card-item__link">
+                  Entender
+                  <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+              </div>
+            </article>
+
+            <article class="card-item" id="card-corredor">
+              <span class="card-item__number" aria-hidden="true">02</span>
+              <div class="card-item__body">
+                <span class="card-item__location">Corredor &amp; Degraus</span>
+                <h3 class="card-item__title">A escada que virou obstáculo</h3>
+                <p class="card-item__desc">Treino funcional no chão real da casa para eliminar o medo de quedas e recuperar a autonomia de andar.</p>
+                <a href="#mobilidade" class="card-item__link">
+                  Entender
+                  <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Desktop -->
+      <div>
+        <p class="sg-viewport-label">Desktop · 1280px</p>
+        <div class="sg-viewport-frame">
+          <div class="sg-cards" style="padding: var(--space-6);">
+
+            <article class="card-item card-item--desktop" id="card-cama-desktop">
+              <span class="card-item__number" aria-hidden="true">01</span>
+              <div class="card-item__body">
+                <span class="card-item__location">Quarto — ao lado da cama</span>
+                <h3 class="card-item__title">O quarto que gira de manhã</h3>
+                <p class="card-item__desc">Vertigem ao virar no travesseiro é o sintoma mais comum da VPPB — e tem solução precisa, sem remédio, realizada na própria cama do paciente com a Manobra de Epley.</p>
+                <a href="#vppb" class="card-item__link" id="card-link-vppb">
+                  Entender a manobra
+                  <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+              </div>
+            </article>
+
+            <article class="card-item card-item--desktop" id="card-corredor-desktop">
+              <span class="card-item__number" aria-hidden="true">02</span>
+              <div class="card-item__body">
+                <span class="card-item__location">Corredor &amp; Degraus</span>
+                <h3 class="card-item__title">A escada que virou obstáculo</h3>
+                <p class="card-item__desc">Treino funcional no chão real da casa, com o corrimão do paciente, no tapete que ele usa, no degrau que ele sobe. Eliminar o medo de quedas exige praticar onde a queda ocorre.</p>
+                <a href="#mobilidade" class="card-item__link" id="card-link-mobilidade">
+                  Ver como funciona
+                  <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /sg-viewports -->
+
+    <div style="margin-top: var(--space-5);">
+      <p class="sg-note">
+        <strong>Grid 3ch + 1fr.</strong> O número à esquerda é âncora visual — como o corrimão junto à parede. Profundidade no hover via mudança tonal de superfície (<code>canvas → surface</code>), sem sombra. Borda superior em <code>--radius-0</code>: estrutura de parede, firme.
+      </p>
+    </div>
+
+  </section>
+
+</main>
+
+</body>
+</html>
